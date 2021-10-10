@@ -29,14 +29,14 @@ function DrawerContent({ toggleDrawer }) {
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-        <ListLink to="sign-in">
-          Войти
-        </ListLink>
         <ListLink to="settings">
           Настройки
         </ListLink>
-        <ListLink to="test-editor">
-          Редактор тестов
+        <ListLink to="tests">
+          Тесты
+        </ListLink>
+        <ListLink to="sign-in">
+          Войти
         </ListLink>
       </List>
     </Box>

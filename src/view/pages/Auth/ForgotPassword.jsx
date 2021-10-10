@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Header from '../../common/Header';
 import EmailInput from '../../common/Auth/EmailInput';
 import ConfirmButton from '../../common/Auth/ConfirmButton';
-import styles from './Common.module.scss';
+import styles from '../Common.module.scss';
 
 function ForgotPassword() {
   const [email, setEmail] = useState('');

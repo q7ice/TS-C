@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Header from '../../common/Header';
 import PasswordInput from '../../common/Auth/PasswordInput';
 import EmailInput from '../../common/Auth/EmailInput';
-import styles from './Common.module.scss';
+import styles from '../Common.module.scss';
 import ConfirmButton from '../../common/Auth/ConfirmButton';
 
 function SignUp() {

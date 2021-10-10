@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import styles from './Common.module.scss';
+import styles from '../Common.module.scss';
 import Header from '../../common/Header';
 import EmailInput from '../../common/Auth/EmailInput';
 import PasswordInput from '../../common/Auth/PasswordInput';
