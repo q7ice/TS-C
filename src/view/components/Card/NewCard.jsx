@@ -1,13 +1,18 @@
 import React from 'react';
-import AddIcon from '@mui/icons-material/Add';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import classNames from 'classnames';
+import { useHistory } from 'react-router-dom';
 import styles from '../../pages/TestsPage.module.scss';
 
 function NewCard() {
+  const history = useHistory();
+  const handleCardClick = () => history.push('/test-edit/new');
   return (
     <div className={classNames(styles.card, styles.newCard)}>
-      <AddCircleOutlineIcon sx={{ fontSize: '3rem' }} />
+      <AddCircleOutlineIcon
+        onClick={handleCardClick}
+        sx={{ fontSize: '3rem' }}
+      />
     </div>
   );
 }

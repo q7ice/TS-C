@@ -6,6 +6,7 @@ import ForgotPassword from './pages/Auth/ForgotPassword';
 import SignUp from './pages/Auth/SignUp';
 import SettingsPage from './pages/SettingsPage';
 import TestsPage from './pages/TestsPage';
+import TestEditPage from './pages/TestEditPage';
 
 function App() {
   return (
@@ -25,6 +26,9 @@ function App() {
         </Route>
         <Route path="/tests">
           <TestsPage />
+        </Route>
+        <Route path="/test-edit">
+          <TestEditPage />
         </Route>
         <Route path="/">
           <SettingsPage />
