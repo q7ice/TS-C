@@ -4,6 +4,7 @@ import {
 } from '@mui/material';
 import questionTypes from '../../../constants/QuestionTypes';
 import styles from './QuestionConstructor.module.scss';
+import SingleConstructor from '../SingleConstructor';
 
 function QuestionConstructor() {
   const [qType, setQType] = useState(questionTypes.TEXT);
@@ -21,6 +22,12 @@ function QuestionConstructor() {
             label="Ответ"
             sx={{ flexGrow: 1 }}
           />
+        </div>
+      );
+    } if (qType === questionTypes.SINGLE) {
+      return (
+        <div>
+          <SingleConstructor />
         </div>
       );
     }
