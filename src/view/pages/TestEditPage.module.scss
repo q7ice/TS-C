@@ -1,7 +1,26 @@
 .wrapper {
   margin-top: 1rem;
   width: 100%;
-  min-height: 15rem;
-  border-radius: 1rem;
-  box-shadow: 0 0 2px 2px black;
+  min-height: 5rem;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+.btn {
+  flex-grow: 1;
+}
+
+.testName {
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 1200px) {
+  .btn {
+    flex-grow: 0;
+  }
 }

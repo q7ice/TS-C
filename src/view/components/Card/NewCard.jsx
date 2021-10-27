@@ -8,9 +8,11 @@ function NewCard() {
   const history = useHistory();
   const handleCardClick = () => history.push('/test-edit/new');
   return (
-    <div className={classNames(styles.card, styles.newCard)}>
+    <div
+      onClick={handleCardClick}
+      className={classNames(styles.card, styles.newCard)}
+    >
       <AddCircleOutlineIcon
-        onClick={handleCardClick}
         sx={{ fontSize: '3rem' }}
       />
     </div>
