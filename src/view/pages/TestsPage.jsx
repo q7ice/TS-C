@@ -1,34 +1,40 @@
 import React from 'react';
 import {
-  Container,
+  Container, Grid,
 } from '@mui/material';
+import Box from '@mui/material/Box';
 import Header from '../common/Header';
-import styles from './TestsPage.module.scss';
-import Card from '../components/Card/Card';
-import NewCard from '../components/Card/NewCard';
+import Card from '../components/TestCard';
+import NewCard from '../components/NewCard';
 
 function TestsPage() {
   return (
-    <div>
+    <Box>
       <Header title="Тесты" />
-      <Container>
-        <div className={styles.cardContainer}>
-          <Card
-            title="Тест по производным"
-            passedCount={0}
-            date="19.09.2021"
-            isClosed
-          />
-          <Card
-            title="Тест по HTML"
-            passedCount={1}
-            date="19.09.2021"
-            isClosed
-          />
-          <NewCard />
-        </div>
+      <Container sx={{ mt: 2 }}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={6} xl={4}>
+            <Card
+              title="Тест по производным"
+              passedCount={0}
+              date="19.09.2021"
+              isClosed
+            />
+          </Grid>
+          <Grid item xs={12} md={6} xl={4}>
+            <Card
+              title="Тест по HTML"
+              passedCount={1}
+              date="19.09.2021"
+              isClosed
+            />
+          </Grid>
+          <Grid item xs={12} md={6} xl={4}>
+            <NewCard />
+          </Grid>
+        </Grid>
       </Container>
-    </div>
+    </Box>
   );
 }
 

@@ -1,14 +1,15 @@
-import { Container } from '@mui/material';
+import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
 import Header from '../common/Header';
 
 function SettingsPage() {
   return (
-    <div>
+    <Box>
       <Header title="Настройки" />
       <Container>
         Настроечки
       </Container>
-    </div>
+    </Box>
   );
 }
 

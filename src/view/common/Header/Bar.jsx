@@ -3,7 +3,7 @@ import {
   AppBar, Button, IconButton, Toolbar, Typography,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 function Bar({
   toggleDrawer,

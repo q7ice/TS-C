@@ -1,0 +1,48 @@
+import { useState } from 'react';
+import Box from '@mui/material/Box';
+import { Container, Stack } from '@mui/material';
+import Header from '../common/Header';
+import PasswordInput from '../common/Auth/PasswordInput';
+import EmailInput from '../common/Auth/EmailInput';
+import ConfirmButton from '../common/Auth/ConfirmButton';
+
+function SignUp() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [repeatPassword, setRepeatPassword] = useState('');
+
+  const handleChangeEmail = (e) => setEmail(e.target.value);
+  const handleChangePassword = (e) => setPassword(e.target.value);
+  const handleChangeRepeatPassword = (e) => setRepeatPassword(e.target.value);
+
+  return (
+    <Box>
+      <Header title="Регистрация" offer="Войти" to="sign-in" />
+      <Container
+        sx={{ display: 'flex', justifyContent: 'center' }}
+      >
+        <Stack>
+          <EmailInput
+            value={email}
+            onChange={handleChangeEmail}
+          />
+          <PasswordInput
+            value={password}
+            onChange={handleChangePassword}
+            label="Пароль"
+          />
+          <PasswordInput
+            value={repeatPassword}
+            onChange={handleChangeRepeatPassword}
+            label="Повтор пароля"
+          />
+          <ConfirmButton>
+            Зарегистрироваться
+          </ConfirmButton>
+        </Stack>
+      </Container>
+    </Box>
+  );
+}
+
+export default SignUp;
