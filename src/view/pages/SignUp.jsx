@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Box from '@mui/material/Box';
-import { Container, Stack } from '@mui/material';
+import { Container, Paper, Stack } from '@mui/material';
 import Header from '../common/Header';
 import PasswordInput from '../common/Auth/PasswordInput';
 import EmailInput from '../common/Auth/EmailInput';
@@ -18,29 +18,37 @@ function SignUp() {
   return (
     <Box>
       <Header title="Регистрация" offer="Войти" to="sign-in" />
-      <Container
-        sx={{ display: 'flex', justifyContent: 'center' }}
+      <Paper
+        square
+        sx={{
+          border: '1px solid transparent',
+          minHeight: '100vh',
+        }}
       >
-        <Stack>
-          <EmailInput
-            value={email}
-            onChange={handleChangeEmail}
-          />
-          <PasswordInput
-            value={password}
-            onChange={handleChangePassword}
-            label="Пароль"
-          />
-          <PasswordInput
-            value={repeatPassword}
-            onChange={handleChangeRepeatPassword}
-            label="Повтор пароля"
-          />
-          <ConfirmButton>
-            Зарегистрироваться
-          </ConfirmButton>
-        </Stack>
-      </Container>
+        <Container
+          sx={{ display: 'flex', justifyContent: 'center' }}
+        >
+          <Stack>
+            <EmailInput
+              value={email}
+              onChange={handleChangeEmail}
+            />
+            <PasswordInput
+              value={password}
+              onChange={handleChangePassword}
+              label="Пароль"
+            />
+            <PasswordInput
+              value={repeatPassword}
+              onChange={handleChangeRepeatPassword}
+              label="Повтор пароля"
+            />
+            <ConfirmButton>
+              Зарегистрироваться
+            </ConfirmButton>
+          </Stack>
+        </Container>
+      </Paper>
     </Box>
   );
 }

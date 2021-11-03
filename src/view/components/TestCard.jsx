@@ -8,7 +8,7 @@ function TestCard({
   title, passedCount, isClosed, date,
 }) {
   return (
-    <Card>
+    <Card elevation={12}>
       <CardContent sx={{ minHeight: 275, maxWidth: 275 }}>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           {date}

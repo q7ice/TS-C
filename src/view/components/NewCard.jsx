@@ -8,7 +8,10 @@ function NewCard() {
   const handleCardClick = () => history.push('/test-edit/new');
 
   return (
-    <Card onClick={handleCardClick}>
+    <Card
+      elevation={12}
+      onClick={handleCardClick}
+    >
       <CardContent
         sx={{
           display: 'flex',

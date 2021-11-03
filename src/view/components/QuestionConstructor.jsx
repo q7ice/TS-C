@@ -16,15 +16,24 @@ function QuestionConstructor({
   setQuestion, deleteQuestion,
   goUp, goDown, disabledDown, disabledUp, id, index,
 }) {
-  console.log(`QuestionConstructor${id}`);
-
   const handleChangeType = (e) => {
+    const newType = e.target.value;
+
+    let newAnswers;
+    if (newType === 'text') {
+      newAnswers = [{ id: 1, value: '', isTrue: true }];
+    } else if (newType === 'single') {
+      newAnswers = [{ id: 1, value: '', isTrue: false }, { id: 2, value: '', isTrue: false }];
+    } else if (newType === 'multi') {
+      newAnswers = [{ id: 1, value: '', isTrue: false }, { id: 2, value: '', isTrue: false }];
+    }
+
     const question = {
       id,
-      type: e.target.value,
+      type: newType,
       description,
       cost,
-      answers,
+      answers: newAnswers,
     };
     setQuestion(id, question);
   };

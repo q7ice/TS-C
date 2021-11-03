@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import Box from '@mui/material/Box';
-import { Container, Stack, Typography } from '@mui/material';
-import { Link } from 'react-router-dom';
+import {
+  Container, Link, Paper, Stack, Typography,
+} from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
 import Header from '../common/Header';
 import EmailInput from '../common/Auth/EmailInput';
 import PasswordInput from '../common/Auth/PasswordInput';
@@ -18,27 +20,44 @@ function SignIn() {
   return (
     <Box>
       <Header title="Вход" offer="Зарегистрироваться" to="sign-up" />
-      <Container
-        sx={{ display: 'flex', justifyContent: 'center' }}
+      <Paper
+        square
+        sx={{
+          border: '1px solid transparent',
+          minHeight: '100vh',
+        }}
       >
-        <Stack>
-          <EmailInput
-            value={email}
-            onChange={handleChangeEmail}
-          />
-          <PasswordInput
-            value={password}
-            onChange={handleChangePassword}
-            label="Пароль"
-          />
-          <ConfirmButton>
-            Войти
-          </ConfirmButton>
-          <Typography sx={{ mt: 1, textAlign: 'center' }}>
-            <Link to="/forgot-password">Забыли пароль?</Link>
-          </Typography>
-        </Stack>
-      </Container>
+        <Container
+          sx={{ display: 'flex', justifyContent: 'center' }}
+        >
+          <Stack>
+            <EmailInput
+              value={email}
+              onChange={handleChangeEmail}
+            />
+            <PasswordInput
+              value={password}
+              onChange={handleChangePassword}
+              label="Пароль"
+            />
+            <ConfirmButton>
+              Войти
+            </ConfirmButton>
+            <Typography sx={{ mt: 1, textAlign: 'center' }}>
+              <RouterLink
+                to="/forgot-password"
+              >
+                <Link
+                  component={RouterLink}
+                  to="/forgot-password"
+                >
+                  Забыли пароль?
+                </Link>
+              </RouterLink>
+            </Typography>
+          </Stack>
+        </Container>
+      </Paper>
     </Box>
   );
 }

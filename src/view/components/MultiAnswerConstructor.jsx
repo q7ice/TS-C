@@ -1,51 +1,103 @@
 import React, { useState } from 'react';
 import {
-  Button, Grid, Radio, Stack, TextField,
+  Button, Checkbox, Grid, Radio, Stack, TextField,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Box from '@mui/material/Box';
 
-function MultiAnswerConstructor() {
-  const [value, setValue] = useState('');
-  const handleChange = (e) => setValue(e.target.value);
+function MultiAnswerVariant({
+  answer, setAnswerText, setAnswerIsChecked, deleteDisabled, deleteAnswer,
+}) {
+  const handleChangeText = (e) => {
+    setAnswerText(e.target.value);
+  };
+  const handleChangeIsChecked = () => {
+    setAnswerIsChecked();
+  };
   return (
-    <Grid container spacing={2}>
-      <Grid item xs={12}>
-        <Stack direction="row" spacing={2} alignItems="center">
-          <Radio
-            checked={value === 'a'}
-            onChange={handleChange}
-            value="a"
-            name="radio-buttons"
+    <Stack
+      direction="row"
+      spacing={2}
+      alignItems="center"
+      sx={{ mb: 2 }}
+    >
+      <Checkbox
+        checked={answer.isTrue}
+        onChange={handleChangeIsChecked}
+        name="radio-buttons"
+      />
+      <TextField
+        label="Вариант ответа"
+        value={answer.value}
+        onChange={handleChangeText}
+        fullWidth
+        multiline
+      />
+      <Button
+        variant="contained"
+        disabled={deleteDisabled}
+        onClick={deleteAnswer}
+      >
+        <DeleteIcon />
+      </Button>
+    </Stack>
+  );
+}
+
+function MultiAnswerConstructor({ answers, setAnswers }) {
+  const handleClickAddNewAnswer = () => {
+    const newAnswerId = Math.max(...answers.map((item) => item.id), 0) + 1;
+    const newAnswer = {
+      id: newAnswerId,
+      isTrue: false,
+      value: '',
+    };
+    setAnswers([...answers, newAnswer]);
+  };
+
+  const deleteAnswer = (id) => () => {
+    const newAnswers = answers.filter((item) => item.id !== id);
+    setAnswers(newAnswers);
+  };
+
+  const setAnswerText = (index) => (text) => {
+    const newAnswers = answers.map((item, i) => {
+      if (index !== i) return item;
+      return { value: text, id: item.id, isTrue: item.isTrue };
+    });
+    setAnswers(newAnswers);
+  };
+
+  const setAnswerIsChecked = (index) => () => {
+    const newAnswers = answers.map((item, i) => {
+      if (index === i) return { value: item.value, id: item.id, isTrue: !item.isTrue };
+      return { value: item.value, id: item.id, isTrue: item.isTrue };
+    });
+    setAnswers(newAnswers);
+  };
+  return (
+    <Box>
+      {
+        answers.map((answer, index, array) => (
+          <MultiAnswerVariant
+            key={index}
+            answer={answer}
+            deleteAnswer={deleteAnswer(answer.id)}
+            deleteDisabled={array.length < 3}
+            setAnswerText={setAnswerText(index)}
+            setAnswerIsChecked={setAnswerIsChecked(index)}
           />
-          <TextField label="Вариант ответа" fullWidth multiline />
-          <Button disabled variant="contained"><DeleteIcon /></Button>
-        </Stack>
-      </Grid>
-      <Grid item xs={12}>
-        <Stack direction="row" spacing={2}>
-          <Radio
-            checked={value === 'b'}
-            onChange={handleChange}
-            value="b"
-            name="radio-buttons"
-          />
-          <TextField label="Вариант ответа" fullWidth multiline />
-          <Button disabled variant="contained"><DeleteIcon /></Button>
-        </Stack>
-      </Grid>
-      <Grid item xs={12}>
-        <Stack direction="row" justifyContent="center">
-          <Button variant="outlined">Добавить вариант ответа</Button>
-        </Stack>
-      </Grid>
-      <Grid item xs={12}>
-        <TextField
-          label="Кол-во баллов"
-          type="number"
-          fullWidth
-        />
-      </Grid>
-    </Grid>
+        ))
+      }
+      <Stack direction="row" justifyContent="center">
+        <Button
+          variant="contained"
+          onClick={handleClickAddNewAnswer}
+        >
+          Добавить вариант ответа
+        </Button>
+      </Stack>
+    </Box>
   );
 }
 

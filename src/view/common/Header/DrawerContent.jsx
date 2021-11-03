@@ -10,10 +10,7 @@ function ListLink({ to, children }) {
   const handleClick = () => { history.push(to); };
   return (
     <ListItem button onClick={handleClick}>
-      <Typography
-        fontSize="0.8rem"
-        color="rgba(0, 0, 0, 0.87)"
-      >
+      <Typography>
         {children}
       </Typography>
     </ListItem>
