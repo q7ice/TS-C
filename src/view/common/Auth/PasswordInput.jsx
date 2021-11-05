@@ -31,7 +31,6 @@ function PasswordInput({ value, onChange, label }) {
     <FormControl sx={{ mb: '1rem', width: '15rem' }} variant="outlined">
       <InputLabel htmlFor="password">{label}</InputLabel>
       <OutlinedInput
-        id="password"
         type={show ? 'text' : 'password'}
         value={value}
         onChange={onChange}

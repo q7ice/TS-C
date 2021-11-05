@@ -8,7 +8,7 @@ import Header from '../common/Header';
 import EmailInput from '../common/Auth/EmailInput';
 import PasswordInput from '../common/Auth/PasswordInput';
 import ConfirmButton from '../common/Auth/ConfirmButton';
-import DefaultLink from '../common/DefaultLink';
+import { loginUser } from '../../api/auth';
 
 function SignIn() {
   const [email, setEmail] = useState('');
@@ -16,6 +16,11 @@ function SignIn() {
 
   const handleChangeEmail = (e) => setEmail(e.target.value);
   const handleChangePassword = (e) => setPassword(e.target.value);
+
+  const handleClickSubmit = async () => {
+    const result = await loginUser(email, password);
+    console.log(result);
+  };
 
   return (
     <Box>
@@ -40,20 +45,16 @@ function SignIn() {
               onChange={handleChangePassword}
               label="Пароль"
             />
-            <ConfirmButton>
+            <ConfirmButton onClick={handleClickSubmit}>
               Войти
             </ConfirmButton>
             <Typography sx={{ mt: 1, textAlign: 'center' }}>
-              <RouterLink
+              <Link
+                component={RouterLink}
                 to="/forgot-password"
               >
-                <Link
-                  component={RouterLink}
-                  to="/forgot-password"
-                >
-                  Забыли пароль?
-                </Link>
-              </RouterLink>
+                Забыли пароль?
+              </Link>
             </Typography>
           </Stack>
         </Container>

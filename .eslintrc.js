@@ -33,5 +33,6 @@ module.exports = {
     'import/no-named-as-default-member': 'off',
     'react/no-array-index-key': 'off',
     'max-len': 'off',
+    'no-return-await': 'off',
   },
 };

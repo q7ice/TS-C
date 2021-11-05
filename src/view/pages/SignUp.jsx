@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import { Container, Paper, Stack } from '@mui/material';
 import Header from '../common/Header';
 import PasswordInput from '../common/Auth/PasswordInput';
 import EmailInput from '../common/Auth/EmailInput';
 import ConfirmButton from '../common/Auth/ConfirmButton';
+import { registerUser } from '../../api/auth';
 
 function SignUp() {
   const [email, setEmail] = useState('');
@@ -14,6 +15,12 @@ function SignUp() {
   const handleChangeEmail = (e) => setEmail(e.target.value);
   const handleChangePassword = (e) => setPassword(e.target.value);
   const handleChangeRepeatPassword = (e) => setRepeatPassword(e.target.value);
+
+  const handleClickSubmit = async () => {
+    if (password === repeatPassword) {
+      await registerUser(email, password);
+    }
+  };
 
   return (
     <Box>
@@ -43,7 +50,7 @@ function SignUp() {
               onChange={handleChangeRepeatPassword}
               label="Повтор пароля"
             />
-            <ConfirmButton>
+            <ConfirmButton onClick={handleClickSubmit}>
               Зарегистрироваться
             </ConfirmButton>
           </Stack>
