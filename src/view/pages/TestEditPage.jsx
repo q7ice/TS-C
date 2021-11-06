@@ -117,7 +117,7 @@ function TestEditPage() {
             <Button
               variant="contained"
               color="success"
-              onClick={() => { console.log(questions); }}
+              onClick={() => { console.log(JSON.stringify(questions)); }}
             >
               Сохранить
             </Button>

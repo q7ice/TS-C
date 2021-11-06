@@ -11,17 +11,21 @@ function NewCard() {
     <Card
       elevation={12}
       onClick={handleCardClick}
+      sx={{
+        mb: 2,
+      }}
     >
       <CardContent
         sx={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          minHeight: 275,
+          minHeight: 218,
+          boxSizing: 'border-box',
           cursor: 'pointer',
         }}
       >
-        <AddCircleOutlineIcon sx={{ fontSize: '3rem' }} />
+        <AddCircleOutlineIcon sx={{ fontSize: '5rem' }} />
       </CardContent>
 
     </Card>

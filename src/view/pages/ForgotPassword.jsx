@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import Box from '@mui/material/Box';
-import { Container, Paper, Stack } from '@mui/material';
+import {
+  Container, Link, Paper, Stack, Typography,
+} from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
 import Header from '../common/Header';
 import EmailInput from '../common/Auth/EmailInput';
 import ConfirmButton from '../common/Auth/ConfirmButton';
@@ -12,7 +15,7 @@ function ForgotPassword() {
 
   return (
     <Box>
-      <Header title="Восстановление пароля" offer="Войти" to="sign-in" />
+      <Header title="Восстановление пароля" />
       <Paper
         square
         sx={{
@@ -29,6 +32,14 @@ function ForgotPassword() {
             <ConfirmButton>
               Восстановить пароль
             </ConfirmButton>
+            <Typography sx={{ mt: 1, textAlign: 'center' }}>
+              <Link
+                component={RouterLink}
+                to="/sign-in"
+              >
+                Войти в аккаунт
+              </Link>
+            </Typography>
           </Stack>
         </Container>
       </Paper>

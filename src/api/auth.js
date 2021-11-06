@@ -6,7 +6,7 @@ export const registerUser = async (email, password) => {
     email,
     password,
   };
-  const { data } = await axios.post(serverConfig.registrationURL, body);
+  return await axios.post(serverConfig.registrationURL, body);
 };
 
 export const loginUser = async (email, password) => {

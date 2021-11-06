@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Container, Grid, Paper,
+  Container, Grid, Paper, Stack,
 } from '@mui/material';
 import Box from '@mui/material/Box';
 import Header from '../common/Header';
@@ -19,27 +19,21 @@ function TestsPage() {
         }}
       >
         <Container sx={{ mt: 2 }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} md={6} xl={4}>
-              <Card
-                title="Тест по производным"
-                passedCount={0}
-                date="19.09.2021"
-                isClosed
-              />
-            </Grid>
-            <Grid item xs={12} md={6} xl={4}>
-              <Card
-                title="Тест по HTML"
-                passedCount={1}
-                date="19.09.2021"
-                isClosed
-              />
-            </Grid>
-            <Grid item xs={12} md={6} xl={4}>
-              <NewCard />
-            </Grid>
-          </Grid>
+          <Stack spacing={2}>
+            <Card
+              title="Тест по производным"
+              passedCount={0}
+              date="19.09.2021"
+              isClosed
+            />
+            <Card
+              title="Тест по HTML"
+              passedCount={1}
+              date="19.09.2021"
+              isClosed
+            />
+            <NewCard />
+          </Stack>
         </Container>
       </Paper>
     </Box>

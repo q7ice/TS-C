@@ -24,7 +24,7 @@ function SignIn() {
 
   return (
     <Box>
-      <Header title="Вход" offer="Зарегистрироваться" to="sign-up" />
+      <Header title="Вход" />
       <Paper
         square
         sx={{
@@ -53,7 +53,15 @@ function SignIn() {
                 component={RouterLink}
                 to="/forgot-password"
               >
-                Забыли пароль?
+                Восстановить пароль
+              </Link>
+            </Typography>
+            <Typography sx={{ mt: 1, textAlign: 'center' }}>
+              <Link
+                component={RouterLink}
+                to="/sign-up"
+              >
+                Зарегистрироваться
               </Link>
             </Typography>
           </Stack>

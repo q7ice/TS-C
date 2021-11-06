@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
-import { Container, Paper, Stack } from '@mui/material';
+import {
+  Container, Link, Paper, Stack, Typography,
+} from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
 import Header from '../common/Header';
 import PasswordInput from '../common/Auth/PasswordInput';
 import EmailInput from '../common/Auth/EmailInput';
@@ -18,13 +21,13 @@ function SignUp() {
 
   const handleClickSubmit = async () => {
     if (password === repeatPassword) {
-      await registerUser(email, password);
+      const { data } = await registerUser(email, password);
     }
   };
 
   return (
     <Box>
-      <Header title="Регистрация" offer="Войти" to="sign-in" />
+      <Header title="Регистрация" />
       <Paper
         square
         sx={{
@@ -53,6 +56,14 @@ function SignUp() {
             <ConfirmButton onClick={handleClickSubmit}>
               Зарегистрироваться
             </ConfirmButton>
+            <Typography sx={{ mt: 1, textAlign: 'center' }}>
+              <Link
+                component={RouterLink}
+                to="/sign-in"
+              >
+                Войти в аккаунт
+              </Link>
+            </Typography>
           </Stack>
         </Container>
       </Paper>
