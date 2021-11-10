@@ -1,15 +1,16 @@
 import React from 'react';
 import { Box } from '@material-ui/core';
+import { useNavigate } from 'react-router-dom';
 import {
   List, ListItem, Typography,
 } from '@mui/material';
-import { useHistory } from 'react-router-dom';
+import { useAuth } from '../../../contexts/AuthContext';
+import { logoutUser } from '../../../api/auth';
 
-function ListLink({ to, children }) {
-  const history = useHistory();
-  const handleClick = () => { history.push(to); };
+function ListLink({ children, to, disabled }) {
+  const navigate = useNavigate();
   return (
-    <ListItem button onClick={handleClick}>
+    <ListItem disabled={disabled} button onClick={() => navigate(to)}>
       <Typography>
         {children}
       </Typography>
@@ -18,6 +19,12 @@ function ListLink({ to, children }) {
 }
 
 function DrawerContent({ toggleDrawer }) {
+  const { isAuth, setId, setRole } = useAuth();
+  const logout = async () => {
+    await logoutUser();
+    setId(null);
+    setRole(null);
+  };
   return (
     <Box
       sx={{ width: 300 }}
@@ -26,15 +33,28 @@ function DrawerContent({ toggleDrawer }) {
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-        <ListLink to="/settings">
+        <ListLink to="/settings" disabled={!isAuth}>
           Настройки
         </ListLink>
-        <ListLink to="/tests">
+        <ListLink to="/tests" disabled={!isAuth}>
           Тесты
         </ListLink>
-        <ListLink to="/sign-in">
-          Войти
-        </ListLink>
+        {
+          isAuth
+            ? (
+              <ListItem button onClick={logout}>
+                <Typography>
+                  Выйти
+                </Typography>
+              </ListItem>
+            )
+            : (
+              <ListLink to="/sign-in">
+                Войти
+              </ListLink>
+            )
+        }
+
       </List>
     </Box>
   );

@@ -1,68 +1,104 @@
 import React, { useState } from 'react';
 import {
-  Card, CardContent, CardHeader, CardMedia, IconButton, Menu, MenuItem,
+  Card, CardContent, CardHeader, IconButton, Menu, MenuItem,
 } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import LockIcon from '@mui/icons-material/Lock';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import GroupIcon from '@mui/icons-material/Group';
+import { useNavigate } from 'react-router-dom';
+import { destroyTest } from '../../api/test';
 
 function TestCard({
-  id, title, passedCount, isClosed, date,
+  id, title, isClosed, date, rerenderTests,
 }) {
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+  const handleTestEdit = () => {
     setAnchorEl(null);
+    navigate(`/test-edit/${id}`);
+  };
+  const handleTestDelete = async () => {
+    setAnchorEl(null);
+    await destroyTest(id);
+    navigate('/settings');
+    navigate('/tests');
   };
   return (
-    <Card elevation={12}>
-      <CardContent>
-        <CardHeader
-          action={(
-            <IconButton aria-label="settings">
-              <MoreVertIcon onClick={handleClick} />
-            </IconButton>
-          )}
-          title={title}
-          subheader={date}
-        />
+    <Card
+      elevation={12}
+      sx={{
+        height: '100%',
+      }}
+    >
+      <CardContent
+        sx={{
+          height: '100%',
+          position: 'relative',
+        }}
+      >
+        <IconButton
+          onClick={handleClick}
+          aria-label="settings"
+          sx={{ position: 'absolute', right: 10 }}
+        >
+          <MoreVertIcon />
+        </IconButton>
+        <Typography
+          color="text.primary"
+          sx={{
+            mb: 2,
+            pr: 3,
+            display: 'flex',
+            alignItems: 'center',
+          }}
+        >
+          {title}
+        </Typography>
         <Typography
           color="text.secondary"
           sx={{
-            ml: 2,
             mb: 2,
             display: 'flex',
             alignItems: 'center',
           }}
         >
-          <LockIcon sx={{ mr: 2 }} />
-          {isClosed ? 'Доступ закрыт' : 'Доступ закрыт'}
+          <LockIcon sx={{
+            mr: 1,
+          }}
+          />
+          {isClosed ? 'Доступ закрыт' : 'Доступ открыт'}
+
         </Typography>
-        <Typography sx={{ display: 'flex', alignItems: 'center', ml: 2 }} color="text.secondary">
-          <GroupIcon sx={{ mr: 2 }} />
-          {passedCount}
+        <Typography
+          color="text.secondary"
+          sx={{
+            mb: 2,
+            display: 'flex',
+            alignItems: 'center',
+          }}
+        >
+          {new Date(date).toLocaleString()}
         </Typography>
       </CardContent>
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}
         open={open}
-        onClose={handleClose}
+        onClose={handleTestEdit}
         MenuListProps={{
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleClose}>
-          {isClosed ? 'Открыть ' : 'Закрыть '}
-          доступ
+        <MenuItem onClick={handleTestEdit}>
+          {isClosed ? 'Открыть доступ' : 'Закрыть доступ'}
         </MenuItem>
-        <MenuItem onClick={handleClose}>Редактировать</MenuItem>
-        <MenuItem onClick={handleClose}>Статистика</MenuItem>
-        <MenuItem onClick={handleClose}>Удалить</MenuItem>
+        <MenuItem onClick={handleTestEdit}>Редактировать</MenuItem>
+        <MenuItem onClick={handleTestDelete}>Удалить</MenuItem>
+        <MenuItem onClick={handleTestEdit}>Статистика</MenuItem>
       </Menu>
     </Card>
   );

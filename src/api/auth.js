@@ -21,7 +21,23 @@ export const loginUser = async (email, password) => {
     },
   };
   const response = await axios(config);
-  return response.data;
+  if (response.data.error) return null;
+  return response.data.body;
+};
+
+export const validateUser = async () => {
+  const config = {
+    method: 'get',
+    url: serverConfig.validate,
+    withCredentials: true,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': 'true',
+    },
+  };
+  const response = await axios(config);
+  if (response.data.error) return { id: null, role: null };
+  return response.data.body;
 };
 
 export const logoutUser = async () => {

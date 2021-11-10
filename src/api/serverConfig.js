@@ -4,14 +4,18 @@ const settings = {
   registrationURL: `${baseURL}/registration`,
   isAvailableEmailURL: `${baseURL}/is-available-email`,
   loginURL: `${baseURL}/login`,
-  createRecipeURL: `${baseURL}/create-recipe`,
   logoutURL: `${baseURL}/logout`,
-  changeAvatarURL: `${baseURL}/change-avatar`,
   changeUserNameURL: `${baseURL}/change-name`,
-  changeUserStatusURL: `${baseURL}/change-status`,
   changeUserEmailURL: `${baseURL}/change-email`,
   changeUserPasswordURL: `${baseURL}/change-password`,
   getPersonalData: `${baseURL}/personal-data`,
+  getAllTests: `${baseURL}/getAllTests`,
+  validate: `${baseURL}/validate`,
+  createNewTest: `${baseURL}/createNewTest`,
+  editTest: `${baseURL}/editTest`,
+  getEditTest: `${baseURL}/getEditTest`,
+  getOne: `${baseURL}/getOne`,
+  destroyTest: `${baseURL}/destroyTest`,
 };
 
 export default settings;

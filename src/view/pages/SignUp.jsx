@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Box from '@mui/material/Box';
 import {
-  Container, Link, Paper, Stack, Typography,
+  Container, Link, Paper, Stack, Typography, useMediaQuery,
 } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import Header from '../common/Header';
@@ -25,6 +25,8 @@ function SignUp() {
     }
   };
 
+  const minBarHeight = `calc(100vh - ${useMediaQuery('(min-width:600px)') ? '66px' : '58px'})`;
+
   return (
     <Box>
       <Header title="Регистрация" />
@@ -32,7 +34,7 @@ function SignUp() {
         square
         sx={{
           border: '1px solid transparent',
-          minHeight: '100vh',
+          minHeight: minBarHeight,
         }}
       >
         <Container

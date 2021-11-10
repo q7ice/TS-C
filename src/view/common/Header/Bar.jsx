@@ -1,24 +1,19 @@
 import React, { useContext } from 'react';
 import {
-  AppBar, Button, IconButton, Toolbar, Typography,
+  AppBar, IconButton, Toolbar, Typography,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { useHistory } from 'react-router-dom';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
-import ThemeContext from '../../../ThemeContext';
+import { ThemeContext } from '../../../contexts/ThemeContext';
 
 function Bar({
   toggleDrawer,
   title,
-  offer,
-  to,
 }) {
   const { theme, setTheme } = useContext(ThemeContext);
   const handleToggleTheme = () => setTheme((prevTheme) => (prevTheme === 'dark' ? 'light' : 'dark'));
-  const history = useHistory();
 
-  const handleClickOffer = () => history.push(to);
   return (
     <AppBar position="static">
       <Toolbar>
@@ -42,19 +37,6 @@ function Bar({
         <IconButton onClick={handleToggleTheme} color="inherit">
           {theme === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
         </IconButton>
-        {offer && (
-        <Button
-          className="white"
-          color="inherit"
-          onClick={handleClickOffer}
-        >
-          <Typography
-            fontSize="0.8rem"
-          >
-            {offer}
-          </Typography>
-        </Button>
-        )}
       </Toolbar>
     </AppBar>
   );

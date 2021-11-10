@@ -1,11 +1,11 @@
 import React from 'react';
 import {
-  Button, Radio, Stack, TextField,
+  Button, Checkbox, Stack, TextField,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Box from '@mui/material/Box';
 
-function SingleAnswerVariant({
+function MultiAnswerVariant({
   answer, setAnswerText, setAnswerIsChecked, deleteDisabled, deleteAnswer,
 }) {
   const handleChangeText = (e) => {
@@ -21,7 +21,7 @@ function SingleAnswerVariant({
       alignItems="center"
       sx={{ mb: 2 }}
     >
-      <Radio
+      <Checkbox
         checked={answer.isTrue}
         onChange={handleChangeIsChecked}
         name="radio-buttons"
@@ -44,14 +44,7 @@ function SingleAnswerVariant({
   );
 }
 
-function SingleAnswerConstructor({ answers, setAnswers }) {
-  const setAnswerText = (index) => (text) => {
-    const newAnswers = answers.map((item, i) => {
-      if (index !== i) return item;
-      return { value: text, id: item.id, isTrue: item.isTrue };
-    });
-    setAnswers(newAnswers);
-  };
+function MultiAnswerForm({ answers, setAnswers }) {
   const handleClickAddNewAnswer = () => {
     const newAnswerId = Math.max(...answers.map((item) => item.id), 0) + 1;
     const newAnswer = {
@@ -67,10 +60,18 @@ function SingleAnswerConstructor({ answers, setAnswers }) {
     setAnswers(newAnswers);
   };
 
+  const setAnswerText = (index) => (text) => {
+    const newAnswers = answers.map((item, i) => {
+      if (index !== i) return item;
+      return { value: text, id: item.id, isTrue: item.isTrue };
+    });
+    setAnswers(newAnswers);
+  };
+
   const setAnswerIsChecked = (index) => () => {
     const newAnswers = answers.map((item, i) => {
-      if (index !== i) return { value: item.value, id: item.id, isTrue: false };
-      return { value: item.value, id: item.id, isTrue: true };
+      if (index === i) return { value: item.value, id: item.id, isTrue: !item.isTrue };
+      return { value: item.value, id: item.id, isTrue: item.isTrue };
     });
     setAnswers(newAnswers);
   };
@@ -78,7 +79,7 @@ function SingleAnswerConstructor({ answers, setAnswers }) {
     <Box>
       {
         answers.map((answer, index, array) => (
-          <SingleAnswerVariant
+          <MultiAnswerVariant
             key={index}
             answer={answer}
             deleteAnswer={deleteAnswer(answer.id)}
@@ -100,4 +101,4 @@ function SingleAnswerConstructor({ answers, setAnswers }) {
   );
 }
 
-export default SingleAnswerConstructor;
+export default MultiAnswerForm;

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Box from '@mui/material/Box';
 import {
-  Container, Link, Paper, Stack, Typography,
+  Container, Link, Paper, Stack, Typography, useMediaQuery,
 } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import Header from '../common/Header';
@@ -10,18 +10,17 @@ import ConfirmButton from '../common/Auth/ConfirmButton';
 
 function ForgotPassword() {
   const [email, setEmail] = useState('');
-
   const handleChangeEmail = (e) => setEmail(e.target.value);
-
+  const minBarHeight = `calc(100vh - ${useMediaQuery('(min-width:600px)') ? '66px' : '58px'})`;
   return (
     <Box>
       <Header title="Восстановление пароля" />
       <Paper
-        square
         sx={{
           border: '1px solid transparent',
-          minHeight: '100vh',
+          minHeight: minBarHeight,
         }}
+        square
       >
         <Container sx={{ display: 'flex', justifyContent: 'center' }}>
           <Stack>

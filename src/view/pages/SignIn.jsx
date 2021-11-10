@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Box from '@mui/material/Box';
 import {
-  Container, Link, Paper, Stack, Typography,
+  Container, Link, Paper, Stack, Typography, useMediaQuery,
 } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import Header from '../common/Header';
@@ -9,6 +9,7 @@ import EmailInput from '../common/Auth/EmailInput';
 import PasswordInput from '../common/Auth/PasswordInput';
 import ConfirmButton from '../common/Auth/ConfirmButton';
 import { loginUser } from '../../api/auth';
+import { useAuth } from '../../contexts/AuthContext';
 
 function SignIn() {
   const [email, setEmail] = useState('');
@@ -17,10 +18,15 @@ function SignIn() {
   const handleChangeEmail = (e) => setEmail(e.target.value);
   const handleChangePassword = (e) => setPassword(e.target.value);
 
+  const { setId, setRole } = useAuth();
+
   const handleClickSubmit = async () => {
     const result = await loginUser(email, password);
-    console.log(result);
+    setId(result.id);
+    setRole(result.role);
   };
+
+  const minBarHeight = `calc(100vh - ${useMediaQuery('(min-width:600px)') ? '66px' : '58px'})`;
 
   return (
     <Box>
@@ -29,7 +35,7 @@ function SignIn() {
         square
         sx={{
           border: '1px solid transparent',
-          minHeight: '100vh',
+          minHeight: minBarHeight,
         }}
       >
         <Container
@@ -44,6 +50,7 @@ function SignIn() {
               value={password}
               onChange={handleChangePassword}
               label="Пароль"
+              submit={handleClickSubmit}
             />
             <ConfirmButton onClick={handleClickSubmit}>
               Войти

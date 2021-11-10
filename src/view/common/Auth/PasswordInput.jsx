@@ -8,11 +8,18 @@ import {
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
-function PasswordInput({ value, onChange, label }) {
+function PasswordInput({
+  value, onChange, label, submit,
+}) {
   const [show, setShow] = useState(false);
 
   const handleMouseDownPassword = (event) => event.preventDefault();
   const handleClickShowPassword = () => setShow(!show);
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter' && submit) {
+      submit();
+    }
+  };
 
   const visibilityButton = (
     <InputAdornment position="end">
@@ -36,6 +43,7 @@ function PasswordInput({ value, onChange, label }) {
         onChange={onChange}
         endAdornment={visibilityButton}
         label={label}
+        onKeyDown={handleKeyPress}
       />
     </FormControl>
   );

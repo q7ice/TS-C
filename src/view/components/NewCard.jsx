@@ -1,33 +1,31 @@
 import React from 'react';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { useHistory } from 'react-router-dom';
 import { Card, CardContent } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 function NewCard() {
-  const history = useHistory();
-  const handleCardClick = () => history.push('/test-edit/new');
-
+  const navigate = useNavigate();
   return (
     <Card
       elevation={12}
-      onClick={handleCardClick}
+      onClick={() => { navigate('/test-edit/new'); }}
       sx={{
-        mb: 2,
+        height: '100%',
+        minHeight: 180,
       }}
     >
       <CardContent
         sx={{
+          height: '100%',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          minHeight: 218,
           boxSizing: 'border-box',
           cursor: 'pointer',
         }}
       >
-        <AddCircleOutlineIcon sx={{ fontSize: '5rem' }} />
+        <AddCircleOutlineIcon sx={{ fontSize: '3rem' }} />
       </CardContent>
-
     </Card>
   );
 }

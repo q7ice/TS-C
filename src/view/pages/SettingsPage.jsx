@@ -1,9 +1,10 @@
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
-import { Paper } from '@mui/material';
+import { Paper, useMediaQuery } from '@mui/material';
 import Header from '../common/Header';
 
 function SettingsPage() {
+  const minBarHeight = `calc(100vh - ${useMediaQuery('(min-width:600px)') ? '66px' : '58px'})`;
   return (
     <Box>
       <Header title="Настройки" />
@@ -11,7 +12,7 @@ function SettingsPage() {
         square
         sx={{
           border: '1px solid transparent',
-          minHeight: '100vh',
+          minHeight: minBarHeight,
         }}
       >
         <Container>
