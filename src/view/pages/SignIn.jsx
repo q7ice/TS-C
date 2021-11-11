@@ -21,9 +21,11 @@ function SignIn() {
   const { setId, setRole } = useAuth();
 
   const handleClickSubmit = async () => {
-    const result = await loginUser(email, password);
-    setId(result.id);
-    setRole(result.role);
+    const data = await loginUser(email, password);
+    setId(data.id);
+    setRole(data.role);
+    localStorage.setItem('userId', data.id);
+    localStorage.setItem('userRole', data.role);
   };
 
   const minBarHeight = `calc(100vh - ${useMediaQuery('(min-width:600px)') ? '66px' : '58px'})`;

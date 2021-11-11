@@ -1,12 +1,20 @@
 import axios from 'axios';
-import serverConfig from './serverConfig';
+import { serverConfig } from './serverConfig';
 
 export const registerUser = async (email, password) => {
-  const body = {
-    email,
-    password,
+  const config = {
+    method: 'post',
+    url: serverConfig.registrationURL,
+    data: { email, password },
+    withCredentials: true,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': 'true',
+    },
   };
-  return await axios.post(serverConfig.registrationURL, body);
+  const response = await axios(config);
+  if (response.data.error) return { error: response.data.error };
+  return response.data.body;
 };
 
 export const loginUser = async (email, password) => {

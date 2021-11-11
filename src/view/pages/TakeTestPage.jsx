@@ -2,56 +2,74 @@ import React, {
   memo, useCallback, useEffect, useState,
 } from 'react';
 import {
-  Button,
-  Container, Paper, Stack,
-  TextField, Typography, useMediaQuery,
+  Button, CircularProgress,
+  Container, Grid, Paper, Stack,
+  Typography, useMediaQuery,
 } from '@mui/material';
 import Box from '@mui/material/Box';
 import { useNavigate, useParams } from 'react-router-dom';
-import QuestionConstructorClear from '../components/QuestionConstructor';
+import QuestionFormClear from '../components/QuestionForm';
 import Header from '../common/Header';
-import {
-  createNewTest, editTest, getOneTest,
-} from '../../api/test';
+import { saveAnswers, takeTest } from '../../api/test';
 
-const QuestionConstructor = memo(QuestionConstructorClear);
+const QuestionForm = memo(QuestionFormClear);
+
+const initialData = [
+  {
+    id: 1,
+    type: 'text',
+    description: '2 + 2?',
+    answers: [
+      { id: 1, value: '' },
+    ],
+  },
+  {
+    id: 2,
+    type: 'single',
+    description: 'Каким знаком отображается минус?',
+    answers: [
+      { id: 1, value: '-', isTrue: false },
+      { id: 2, value: '+', isTrue: false },
+    ],
+  },
+  {
+    id: 3,
+    type: 'multi',
+    description: 'Выберите чётные числа?',
+    answers: [
+      { id: 1, value: '1', isTrue: false },
+      { id: 2, value: '2', isTrue: false },
+      { id: 3, value: '3', isTrue: false },
+    ],
+  },
+];
 
 function TestEditPage() {
   const params = useParams();
+  const [access, setAccess] = useState(true);
   const [testName, setTestName] = useState('');
-  const [questions, setQuestions] = useState([]);
+  const [answers, setAnswers] = useState(initialData);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function run() {
-      const data = await getOneTest(+params.id);
+      const data = await takeTest(+params.id);
       setTestName(data.name);
-      setQuestions(data.questions);
+      setAnswers(data.questions);
+      setAccess(data.access);
+      setIsLoading(false);
     }
-    if (params.id !== 'new') {
-      run().catch();
-    }
+    run().catch();
   }, []);
 
   const navigate = useNavigate();
   const handleClickSave = async () => {
-    // if (params.id === 'new') {
-    //   const success = await createNewTest(testName, questions);
-    //   if (success) {
-    //     navigate('/tests');
-    //   }
-    // } else {
-    //   const success = await editTest(params.id, testName, questions);
-    //   if (success) {
-    //     navigate('/tests');
-    //   }
-    // }
-  };
-  const handleChangeTestName = (e) => {
-    setTestName(e.target.value);
+    await saveAnswers(answers);
+    navigate(`/view-results/${+params.id}`);
   };
   const setQuestion = useCallback((id, question) => {
-    setQuestions((prevQuestions) => prevQuestions.map((item) => (id === item.id ? question : item)));
-  }, [setQuestions]);
+    setAnswers((prevQuestions) => prevQuestions.map((item) => (id === item.id ? question : item)));
+  }, [setAnswers]);
 
   const minBarHeight = `calc(100vh - ${useMediaQuery('(min-width:600px)') ? '66px' : '58px'})`;
   return (
@@ -65,34 +83,84 @@ function TestEditPage() {
         }}
       >
         <Container>
-          <Typography>{testName}</Typography>
-          {
-            questions.map((question, index, array) => (
-              <QuestionForm
-                key={question.id}
-                id={question.id}
-                index={index}
-                type={question.type}
-                description={question.description}
-                answers={question.answers}
-                setQuestion={setQuestion}
-              />
-            ))
-          }
-          <Stack
-            direction="row"
-            justifyContent="center"
-            spacing={2}
-            sx={{ mt: 5, mb: 5 }}
+          <Typography
+            variant="h2"
+            sx={{
+              mt: 2,
+              display: 'flex',
+              justifyContent: 'center',
+              fontSize: '1.5rem',
+            }}
           >
-            <Button
-              variant="contained"
-              color="success"
-              onClick={handleClickSave}
-            >
-              Сохранить результат
-            </Button>
-          </Stack>
+            {testName}
+          </Typography>
+          {
+            !access ? (
+              <Typography
+                variant="h6"
+                color="error"
+                sx={{
+                  mt: 2,
+                  display: 'flex',
+                  justifyContent: 'center',
+                  fontSize: '1.5rem',
+                }}
+              >
+                Доступ к тесту закрыт
+              </Typography>
+            ) : null
+          }
+
+          {
+            isLoading ? (
+              <Grid container justifyContent="center" sx={{ mt: 2 }}><CircularProgress size={100} /></Grid>
+            )
+              : answers.map((question, index) => (
+                <QuestionForm
+                  key={question.id}
+                  id={question.id}
+                  index={index}
+                  type={question.type}
+                  description={question.description}
+                  answers={question.answers}
+                  setQuestion={setQuestion}
+                />
+              ))
+          }
+          {
+            isLoading ? null
+              : (access ? (
+                <Stack
+                  direction="row"
+                  justifyContent="center"
+                  spacing={2}
+                  sx={{ mt: 5, mb: 5 }}
+                >
+                  <Button
+                    variant="contained"
+                    color="success"
+                    onClick={handleClickSave}
+                  >
+                    Сохранить результат
+                  </Button>
+                </Stack>
+              ) : (
+                <Stack
+                  direction="row"
+                  justifyContent="center"
+                  spacing={2}
+                  sx={{ mt: 5, mb: 5 }}
+                >
+                  <Button
+                    variant="contained"
+                    color="error"
+                    onClick={() => { navigate('/tests'); }}
+                  >
+                    Вернуться к тестам
+                  </Button>
+                </Stack>
+              ))
+          }
         </Container>
       </Paper>
     </Box>

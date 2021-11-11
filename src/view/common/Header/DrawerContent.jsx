@@ -24,6 +24,8 @@ function DrawerContent({ toggleDrawer }) {
     await logoutUser();
     setId(null);
     setRole(null);
+    localStorage.removeItem('userId');
+    localStorage.removeItem('userRole');
   };
   return (
     <Box

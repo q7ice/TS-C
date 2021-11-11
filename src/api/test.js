@@ -1,5 +1,5 @@
 import axios from 'axios';
-import serverConfig from './serverConfig';
+import { serverConfig } from './serverConfig';
 
 export const getAllTests = async () => {
   const config = {
@@ -28,6 +28,70 @@ export const destroyTest = async (testId) => {
   };
   const response = await axios(config);
   return response.data.body;
+};
+
+export const changeOpenTest = async (testId) => {
+  const config = {
+    method: 'post',
+    url: serverConfig.changeOpenTest,
+    withCredentials: true,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': 'true',
+    },
+    data: { testId },
+  };
+  const response = await axios(config);
+  return !response.data.error;
+};
+
+export const saveAnswers = async (testAnswers) => {
+  const config = {
+    method: 'post',
+    url: serverConfig.saveAnswers,
+    withCredentials: true,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': 'true',
+    },
+    data: { testAnswers },
+  };
+  const response = await axios(config);
+};
+
+export const getResults = async (testId) => {
+  const config = {
+    method: 'post',
+    url: serverConfig.getResults,
+    withCredentials: true,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': 'true',
+    },
+    data: { testId },
+  };
+  const response = await axios(config);
+  if (!response.data.error) return response.data.body;
+  return {};
+};
+
+export const takeTest = async (testId) => {
+  const config = {
+    method: 'post',
+    url: serverConfig.takeTest,
+    withCredentials: true,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': 'true',
+    },
+    data: { testId },
+  };
+  const response = await axios(config);
+  if (!response.data.error) {
+    response.data.body.access = true;
+    return response.data.body;
+  }
+  return { name: '', questions: [], access: false };
 };
 
 export const getOneTest = async (testId) => {

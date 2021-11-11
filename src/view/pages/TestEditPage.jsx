@@ -2,8 +2,8 @@ import React, {
   memo, useCallback, useEffect, useState,
 } from 'react';
 import {
-  Button,
-  Container, Paper, Stack,
+  Button, CircularProgress,
+  Container, Grid, Paper, Stack,
   TextField, useMediaQuery,
 } from '@mui/material';
 import Box from '@mui/material/Box';
@@ -18,6 +18,7 @@ const QuestionConstructor = memo(QuestionConstructorClear);
 
 function TestEditPage() {
   const params = useParams();
+  const [isLoading, setIsLoading] = useState(true);
   const [testName, setTestName] = useState('');
   const [questions, setQuestions] = useState([]);
 
@@ -26,9 +27,12 @@ function TestEditPage() {
       const data = await getOneTest(+params.id);
       setTestName(data.name);
       setQuestions(data.questions);
+      setIsLoading(false);
     }
     if (params.id !== 'new') {
       run().catch();
+    } else {
+      setIsLoading(false);
     }
   }, []);
 
@@ -46,6 +50,10 @@ function TestEditPage() {
       }
     }
   };
+  const handleCancel = () => {
+    navigate('/tests');
+  };
+
   const handleChangeTestName = (e) => {
     setTestName(e.target.value);
   };
@@ -108,55 +116,77 @@ function TestEditPage() {
         }}
       >
         <Container>
-          <TextField
-            label="Название теста"
-            value={testName}
-            onChange={handleChangeTestName}
-            fullWidth
-            sx={{ mt: 2, mb: 2 }}
-          />
           {
-            questions.map((question, index, array) => (
-              <QuestionConstructor
-                key={question.id}
-                id={question.id}
-                index={index}
-                type={question.type}
-                description={question.description}
-                cost={question.cost}
-                answers={question.answers}
-                setQuestion={setQuestion}
-                deleteQuestion={deleteQuestion}
-                goUp={goUpQuestion}
-                disabledUp={index === 0}
-                goDown={goDownQuestion}
-                disabledDown={index === array.length - 1}
-              />
-            ))
+            isLoading ? null
+              : (
+                <TextField
+                  label="Название теста"
+                  value={testName}
+                  onChange={handleChangeTestName}
+                  fullWidth
+                  sx={{ mt: 2, mb: 2 }}
+                />
+              )
           }
-          <Stack direction="row" justifyContent="center">
-            <Button
-              variant="contained"
-              onClick={addNewQuestion}
-            >
-              Добавить новый вопрос
-            </Button>
-          </Stack>
-          <Stack
-            direction="row"
-            justifyContent="center"
-            spacing={2}
-            sx={{ mt: 5, mb: 5 }}
-          >
-            <Button
-              variant="contained"
-              color="success"
-              onClick={handleClickSave}
-            >
-              Сохранить
-            </Button>
-            <Button variant="contained" color="error">Отменить</Button>
-          </Stack>
+          {
+            isLoading ? (
+              <Grid container justifyContent="center" sx={{ mt: 2 }}><CircularProgress size={100} /></Grid>
+            )
+              : questions.map((question, index, array) => (
+                <QuestionConstructor
+                  key={question.id}
+                  id={question.id}
+                  index={index}
+                  type={question.type}
+                  description={question.description}
+                  cost={question.cost}
+                  answers={question.answers}
+                  setQuestion={setQuestion}
+                  deleteQuestion={deleteQuestion}
+                  goUp={goUpQuestion}
+                  disabledUp={index === 0}
+                  goDown={goDownQuestion}
+                  disabledDown={index === array.length - 1}
+                />
+              ))
+          }
+          {
+
+            isLoading ? null
+              : (
+                <>
+                  <Stack direction="row" justifyContent="center">
+                    <Button
+                      variant="contained"
+                      onClick={addNewQuestion}
+                    >
+                      Добавить новый вопрос
+                    </Button>
+                  </Stack>
+                  <Stack
+                    direction="row"
+                    justifyContent="center"
+                    spacing={2}
+                    sx={{ mt: 5, mb: 5 }}
+                  >
+                    <Button
+                      variant="contained"
+                      color="success"
+                      onClick={handleClickSave}
+                    >
+                      Сохранить
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="error"
+                      onClick={handleCancel}
+                    >
+                      Отменить
+                    </Button>
+                  </Stack>
+                </>
+              )
+          }
         </Container>
       </Paper>
     </Box>

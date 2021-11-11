@@ -1,8 +1,7 @@
 import React from 'react';
-import TextAnswerConstructor from './TextAnswerConstructor';
-import SingleAnswerConstructor from './SingleAnswerConstructor';
-import MultiAnswerConstructor from './MultiAnswerConstructor';
 import TextAnswerForm from './TextAnswerForm';
+import SingleAnswerForm from './SingleAnswerForm';
+import MultiAnswerForm from './MultiAnswerForm';
 
 function AnswerForm({ type, answers, setAnswers }) {
   if (type === 'text') {
@@ -14,14 +13,14 @@ function AnswerForm({ type, answers, setAnswers }) {
     );
   } if (type === 'single') {
     return (
-      <SingleAnswerConstructor
+      <SingleAnswerForm
         answers={answers}
         setAnswers={setAnswers}
       />
     );
   } if (type === 'multi') {
     return (
-      <MultiAnswerConstructor
+      <MultiAnswerForm
         answers={answers}
         setAnswers={setAnswers}
       />

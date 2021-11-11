@@ -1,6 +1,6 @@
 export const baseURL = 'http://localhost:5000';
 
-const settings = {
+export const serverConfig = {
   registrationURL: `${baseURL}/registration`,
   isAvailableEmailURL: `${baseURL}/is-available-email`,
   loginURL: `${baseURL}/login`,
@@ -16,6 +16,10 @@ const settings = {
   getEditTest: `${baseURL}/getEditTest`,
   getOne: `${baseURL}/getOne`,
   destroyTest: `${baseURL}/destroyTest`,
+  takeTest: `${baseURL}/takeTest`,
+  changeOpenTest: `${baseURL}/changeOpenTest`,
+  saveAnswers: `${baseURL}/saveAnswers`,
+  getResults: `${baseURL}/getResults`,
 };
 
-export default settings;
+export default serverConfig;

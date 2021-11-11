@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import {
   Container, Link, Paper, Stack, Typography, useMediaQuery,
 } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import Header from '../common/Header';
 import PasswordInput from '../common/Auth/PasswordInput';
 import EmailInput from '../common/Auth/EmailInput';
@@ -19,9 +19,11 @@ function SignUp() {
   const handleChangePassword = (e) => setPassword(e.target.value);
   const handleChangeRepeatPassword = (e) => setRepeatPassword(e.target.value);
 
+  const navigate = useNavigate();
   const handleClickSubmit = async () => {
     if (password === repeatPassword) {
       const { data } = await registerUser(email, password);
+      navigate('/sign-in');
     }
   };
 

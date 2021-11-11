@@ -1,13 +1,14 @@
 import React from 'react';
-import {
-  Button, Radio, Stack, Typography,
-} from '@mui/material';
+import { Checkbox, Stack, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 
-function SingleAnswerVariant({ answer, setAnswerIsChecked }) {
+function MultiAnswerVariant({
+  answer, setAnswerIsChecked,
+}) {
   const handleChangeIsChecked = () => {
     setAnswerIsChecked();
   };
+  const generatedId = `${Math.random()}`;
   return (
     <Stack
       direction="row"
@@ -15,21 +16,22 @@ function SingleAnswerVariant({ answer, setAnswerIsChecked }) {
       alignItems="center"
       sx={{ mb: 2 }}
     >
-      <Radio
+      <Checkbox
         checked={answer.isTrue}
         onChange={handleChangeIsChecked}
         name="radio-buttons"
+        id={generatedId}
       />
-      <Typography>{answer.value}</Typography>
+      <Typography component="label" htmlFor={generatedId} sx={{ cursor: 'pointer' }}>{answer.value}</Typography>
     </Stack>
   );
 }
 
-function SingleAnswerForm({ answers, setAnswers }) {
+function MultiAnswerForm({ answers, setAnswers }) {
   const setAnswerIsChecked = (index) => () => {
     const newAnswers = answers.map((item, i) => {
-      if (index !== i) return { value: item.value, id: item.id, isTrue: false };
-      return { value: item.value, id: item.id, isTrue: true };
+      if (index === i) return { value: item.value, id: item.id, isTrue: !item.isTrue };
+      return { value: item.value, id: item.id, isTrue: item.isTrue };
     });
     setAnswers(newAnswers);
   };
@@ -38,7 +40,7 @@ function SingleAnswerForm({ answers, setAnswers }) {
     <Box>
       {
         answers.map((answer, index) => (
-          <SingleAnswerVariant
+          <MultiAnswerVariant
             key={index}
             answer={answer}
             setAnswerIsChecked={setAnswerIsChecked(index)}
@@ -49,4 +51,4 @@ function SingleAnswerForm({ answers, setAnswers }) {
   );
 }
 
-export default SingleAnswerForm;
+export default MultiAnswerForm;

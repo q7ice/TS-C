@@ -6,7 +6,8 @@ import Typography from '@mui/material/Typography';
 import LockIcon from '@mui/icons-material/Lock';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useNavigate } from 'react-router-dom';
-import { destroyTest } from '../../api/test';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
+import { changeOpenTest, destroyTest } from '../../api/test';
 
 function TestCard({
   id, title, isClosed, date, rerenderTests,
@@ -26,6 +27,15 @@ function TestCard({
     await destroyTest(id);
     navigate('/settings');
     navigate('/tests');
+  };
+  const handleTestChangeOpen = async () => {
+    setAnchorEl(null);
+    const success = await changeOpenTest(id);
+    navigate('/settings');
+    navigate('/tests');
+  };
+  const handleTakeTest = () => {
+    navigate(`/take-test/${id}`);
   };
   return (
     <Card
@@ -66,12 +76,8 @@ function TestCard({
             alignItems: 'center',
           }}
         >
-          <LockIcon sx={{
-            mr: 1,
-          }}
-          />
+          {isClosed ? <LockIcon sx={{ mr: 1 }} /> : <LockOpenIcon sx={{ mr: 1 }} />}
           {isClosed ? 'Доступ закрыт' : 'Доступ открыт'}
-
         </Typography>
         <Typography
           color="text.secondary"
@@ -93,11 +99,12 @@ function TestCard({
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleTestEdit}>
+        <MenuItem onClick={handleTestChangeOpen}>
           {isClosed ? 'Открыть доступ' : 'Закрыть доступ'}
         </MenuItem>
         <MenuItem onClick={handleTestEdit}>Редактировать</MenuItem>
         <MenuItem onClick={handleTestDelete}>Удалить</MenuItem>
+        <MenuItem onClick={handleTakeTest}>Пройти тест</MenuItem>
         <MenuItem onClick={handleTestEdit}>Статистика</MenuItem>
       </Menu>
     </Card>

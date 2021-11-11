@@ -1,16 +1,10 @@
 import React from 'react';
 import {
-  Button,
-  Card,
-  FormControl, InputLabel,
-  MenuItem, Paper, Select, Stack, TextField, Typography,
+  Paper, Typography,
 } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import AnswerConstructor from './AnswerConstructor';
+import AnswerForm from './AnswerForm';
 
-function QuestionConstructor({
+function QuestionForm({
   type, description, answers,
   setQuestion, id,
 }) {
@@ -29,8 +23,8 @@ function QuestionConstructor({
       elevation={12}
       sx={{ padding: 2, mt: 5, mb: 5 }}
     >
-      <Typography>{description}</Typography>
-      <AnswerConstructor
+      <Typography sx={{ mb: 2 }}>{description}</Typography>
+      <AnswerForm
         type={type}
         answers={answers}
         setAnswers={setAnswers}
@@ -39,4 +33,4 @@ function QuestionConstructor({
   );
 }
 
-export default QuestionConstructor;
+export default QuestionForm;

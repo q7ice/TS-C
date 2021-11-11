@@ -10,6 +10,8 @@ import { AuthProvider } from '../contexts/AuthContext';
 import RequireUnAuth from './components/RequireUnAuth';
 import RequireAuth from './components/RequireAuth';
 import Home from './pages/Home';
+import TakeTestPage from './pages/TakeTestPage';
+import ViewResultsPage from './pages/ViewResultsPage';
 
 function App() {
   return (
@@ -22,8 +24,14 @@ function App() {
             <Route path="/forgot-password" element={<RequireUnAuth><ForgotPassword /></RequireUnAuth>} />
             <Route path="/settings" element={<RequireAuth><SettingsPage /></RequireAuth>} />
             <Route path="/tests" element={<RequireAuth><TestsPage /></RequireAuth>} />
-            <Route path="/test-edit" element={<RequireAuth><TestEditPage /></RequireAuth>}>
+            <Route path="/test-edit">
               <Route path=":id" element={<RequireAuth><TestEditPage /></RequireAuth>} />
+            </Route>
+            <Route path="/take-test">
+              <Route path=":id" element={<RequireAuth><TakeTestPage /></RequireAuth>} />
+            </Route>
+            <Route path="/view-results">
+              <Route path=":id" element={<RequireAuth><ViewResultsPage /></RequireAuth>} />
             </Route>
             <Route path="*" element={<Home />} />
           </Routes>

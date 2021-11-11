@@ -30,13 +30,17 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }) => {
-  const [id, setId] = useState(null);
-  const [role, setRole] = useState(null);
+  const startId = localStorage.getItem('userId') ?? null;
+  const startRole = localStorage.getItem('userRole') ?? null;
+  const [id, setId] = useState(startId);
+  const [role, setRole] = useState(startRole);
   useEffect(() => {
     async function run() {
       const data = await validateUser();
       setId(data.id);
       setRole(data.role);
+      localStorage.setItem('userId', data.id);
+      localStorage.setItem('userRole', data.role);
     }
     run().catch();
   }, []);
