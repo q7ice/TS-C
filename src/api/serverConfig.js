@@ -1,4 +1,4 @@
-export const baseURL = 'http://localhost:5000';
+export const baseURL = 'http://62.113.97.43:5000';
 
 export const serverConfig = {
   registrationURL: `${baseURL}/registration`,
