@@ -12,6 +12,7 @@ export const registerUser = async (email, password) => {
       'Access-Control-Allow-Credentials': 'true',
     },
   };
+  console.log(config.url);
   const response = await axios(config);
   if (response.data.error) return { error: response.data.error };
   return response.data.body;
