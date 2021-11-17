@@ -1,4 +1,4 @@
-export const baseURL = 'https://7ice.ru:5000/api';
+export const baseURL = 'https://7ice.ru/api';
 
 export const serverConfig = {
   registrationURL: `${baseURL}/registration`,
