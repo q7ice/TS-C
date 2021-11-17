@@ -56,7 +56,7 @@ export const saveAnswers = async (testAnswers) => {
     },
     data: { testAnswers },
   };
-  const response = await axios(config);
+  await axios(config);
 };
 
 export const getResults = async (testId) => {
@@ -72,7 +72,7 @@ export const getResults = async (testId) => {
   };
   const response = await axios(config);
   if (!response.data.error) return response.data.body;
-  return {};
+  return { name: response.data.error, questions: [] };
 };
 
 export const takeTest = async (testId) => {
