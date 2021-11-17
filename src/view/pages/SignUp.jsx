@@ -22,7 +22,7 @@ function SignUp() {
   const navigate = useNavigate();
   const handleClickSubmit = async () => {
     if (password === repeatPassword) {
-      const { data } = await registerUser(email, password);
+      await registerUser(email, password);
       navigate('/sign-in');
     }
   };
