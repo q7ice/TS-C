@@ -22,10 +22,12 @@ function SignIn() {
 
   const handleClickSubmit = async () => {
     const data = await loginUser(email, password);
-    setId(data.id);
-    setRole(data.role);
-    localStorage.setItem('userId', data.id);
-    localStorage.setItem('userRole', data.role);
+    if (data?.id && data?.role) {
+      setId(data.id);
+      setRole(data.role);
+      localStorage.setItem('userId', data.id);
+      localStorage.setItem('userRole', data.role);
+    }
   };
 
   const minBarHeight = `calc(100vh - ${useMediaQuery('(min-width:600px)') ? '66px' : '58px'})`;
