@@ -1,4 +1,4 @@
-export const baseURL = 'https://7ice.ru/api';
+export const baseURL = process.env.BASE_URL ?? 'https://localhost';
 
 export const serverConfig = {
   registrationURL: `${baseURL}/registration`,
