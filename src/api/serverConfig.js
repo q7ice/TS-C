@@ -1,5 +1,4 @@
 export const baseURL = process.env.REACT_APP_API_URL ?? 'http://localhost:5000/api';
-console.log(baseURL);
 export const serverConfig = {
   registrationURL: `${baseURL}/registration`,
   isAvailableEmailURL: `${baseURL}/is-available-email`,
