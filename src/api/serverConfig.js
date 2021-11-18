@@ -1,5 +1,5 @@
-export const baseURL = process.env.SERVER_URL ?? 'https://localhost:5000/api';
-
+export const baseURL = process.env.SERVER_URL ?? 'http://localhost:5000/api';
+console.log(baseURL);
 export const serverConfig = {
   registrationURL: `${baseURL}/registration`,
   isAvailableEmailURL: `${baseURL}/is-available-email`,
