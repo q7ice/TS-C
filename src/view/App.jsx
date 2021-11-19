@@ -15,32 +15,35 @@ import ViewResultsPage from './pages/Private/ViewResultsPage';
 import AdminSignUp from './pages/Auth/AdminSignUp';
 import RequireAdmin from './components/LinkTypes/RequireAdmin';
 import BlockUser from './pages/admin/BlockUser';
+import { AlertProvider } from '../contexts/AlertContext';
 
 function App() {
   return (
     <AuthProvider>
       <ThemeContextProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/admin-sign-up" element={<RequireUnAuth><AdminSignUp /></RequireUnAuth>} />
-            <Route path="/sign-in" element={<RequireUnAuth><SignIn /></RequireUnAuth>} />
-            <Route path="/sign-up" element={<RequireUnAuth><SignUp /></RequireUnAuth>} />
-            <Route path="/forgot-password" element={<RequireUnAuth><ForgotPassword /></RequireUnAuth>} />
-            <Route path="/settings" element={<RequireAuth><SettingsPage /></RequireAuth>} />
-            <Route path="/tests" element={<RequireAuth><TestsPage /></RequireAuth>} />
-            <Route path="/test-edit">
-              <Route path=":id" element={<RequireAuth><TestEditPage /></RequireAuth>} />
-            </Route>
-            <Route path="/take-test">
-              <Route path=":id" element={<RequireAuth><TakeTestPage /></RequireAuth>} />
-            </Route>
-            <Route path="/view-results">
-              <Route path=":id" element={<RequireAuth><ViewResultsPage /></RequireAuth>} />
-            </Route>
-            <Route path="/admin-panel" element={<RequireAdmin><BlockUser /></RequireAdmin>} />
-            <Route path="*" element={<Home />} />
-          </Routes>
-        </BrowserRouter>
+        <AlertProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/admin-sign-up" element={<RequireUnAuth><AdminSignUp /></RequireUnAuth>} />
+              <Route path="/sign-in" element={<RequireUnAuth><SignIn /></RequireUnAuth>} />
+              <Route path="/sign-up" element={<RequireUnAuth><SignUp /></RequireUnAuth>} />
+              <Route path="/forgot-password" element={<RequireUnAuth><ForgotPassword /></RequireUnAuth>} />
+              <Route path="/settings" element={<RequireAuth><SettingsPage /></RequireAuth>} />
+              <Route path="/tests" element={<RequireAuth><TestsPage /></RequireAuth>} />
+              <Route path="/test-edit">
+                <Route path=":id" element={<RequireAuth><TestEditPage /></RequireAuth>} />
+              </Route>
+              <Route path="/take-test">
+                <Route path=":id" element={<RequireAuth><TakeTestPage /></RequireAuth>} />
+              </Route>
+              <Route path="/view-results">
+                <Route path=":id" element={<RequireAuth><ViewResultsPage /></RequireAuth>} />
+              </Route>
+              <Route path="/admin-panel" element={<RequireAdmin><BlockUser /></RequireAdmin>} />
+              <Route path="*" element={<Home />} />
+            </Routes>
+          </BrowserRouter>
+        </AlertProvider>
       </ThemeContextProvider>
     </AuthProvider>
   );
