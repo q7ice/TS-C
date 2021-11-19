@@ -5,7 +5,7 @@ import {
 import AnswerResult from './AnswerResult';
 
 function QuestionResult({
-  type, description, answers, id,
+  type, description, answers,
 }) {
   return (
     <Paper
