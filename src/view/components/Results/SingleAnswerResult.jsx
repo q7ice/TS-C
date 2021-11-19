@@ -4,7 +4,7 @@ import {
 } from '@mui/material';
 import Box from '@mui/material/Box';
 
-function SingleAnswerVariant({ answer, setAnswerIsChecked }) {
+function SingleAnswerVariant({ answer }) {
   const { userIsTrue, realIsTrue } = answer;
   const generatedId = `${Math.random()}`;
   let color = 'default';
@@ -38,15 +38,7 @@ function SingleAnswerVariant({ answer, setAnswerIsChecked }) {
   );
 }
 
-function SingleAnswerResult({ answers, setAnswers }) {
-  const setAnswerIsChecked = (index) => () => {
-    const newAnswers = answers.map((item, i) => {
-      if (index !== i) return { value: item.value, id: item.id, isTrue: false };
-      return { value: item.value, id: item.id, isTrue: true };
-    });
-    setAnswers(newAnswers);
-  };
-
+function SingleAnswerResult({ answers }) {
   return (
     <Box>
       {
@@ -54,7 +46,6 @@ function SingleAnswerResult({ answers, setAnswers }) {
           <SingleAnswerVariant
             key={index}
             answer={answer}
-            setAnswerIsChecked={setAnswerIsChecked(index)}
           />
         ))
       }

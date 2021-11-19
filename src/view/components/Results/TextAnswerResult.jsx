@@ -1,15 +1,9 @@
 import React from 'react';
 import { TextField } from '@mui/material';
 
-function TextAnswerResult({ answers, setAnswers }) {
+function TextAnswerResult({ answers }) {
   const { value } = answers[0];
   const { realValue } = answers[0];
-  const handleChangeAnswer = (e) => {
-    setAnswers([{
-      value: e.target.value,
-      isTrue: true,
-    }]);
-  };
   const handleNull = () => {};
   const correctAnswer = value === realValue;
   return (
