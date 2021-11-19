@@ -15,7 +15,6 @@ import QuestionResultClear from '../../components/Results/QuestionResult';
 const QuestionResult = memo(QuestionResultClear);
 
 function ViewResultsPage() {
-  console.log('Результаты');
   const params = useParams();
   const [testName, setTestName] = useState('');
   const [answers, setAnswers] = useState([]);
@@ -45,7 +44,6 @@ function ViewResultsPage() {
     percentageResult = ((userResult / maxResult) * 100).toFixed(2);
   }
   useEffect(() => {
-    console.log('effect');
     async function run() {
       const data = await getResults(+params.id);
       setTestName(data.name);
