@@ -9,7 +9,7 @@ function QuestionResult({
 }) {
   let correctAnswer = false;
   if (type === 'text') {
-    correctAnswer = answers.value === answers.realValue;
+    correctAnswer = answers[0].value === answers[0].realValue;
   } else if (type === 'single' || type === 'multi') {
     correctAnswer = answers.every((answer) => answer.userIsTrue === answer.realIsTrue);
   }

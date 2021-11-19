@@ -11,16 +11,16 @@ function BlockUser() {
   const [id, setId] = useState('1');
   const handleChangeId = (e) => setId(e.target.value);
 
-  const { setError, setSuccess } = useAlert();
+  const { showError, showSuccess } = useAlert();
 
   const minBarHeight = `calc(100vh - ${useMediaQuery('(min-width:600px)') ? '66px' : '58px'})`;
 
   const handleBlock = async () => {
     const result = await blockUser(+id);
     if (result.error) {
-      setError(result.error);
+      showError(result.error);
     } else if (result.message) {
-      setSuccess(result.message);
+      showSuccess(result.message);
     }
   };
   return (

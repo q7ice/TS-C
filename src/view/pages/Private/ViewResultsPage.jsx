@@ -15,12 +15,37 @@ import QuestionResultClear from '../../components/Results/QuestionResult';
 const QuestionResult = memo(QuestionResultClear);
 
 function ViewResultsPage() {
+  console.log('Результаты');
   const params = useParams();
   const [testName, setTestName] = useState('');
   const [answers, setAnswers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  let userResult = 0;
+  let maxResult = 0;
+  let percentageResult = 0;
+
+  if (!isLoading) {
+    userResult = answers.reduce((acc, item) => {
+      if (item.type === 'text') {
+        if (item.answers[0].value === item.answers[0].realValue) {
+          return acc + item.cost;
+        }
+        return acc;
+      }
+      if (item.type === 'multi' || item.type === 'single') {
+        if (item.answers.every((answer) => answer.userIsTrue === answer.realIsTrue)) {
+          return acc + item.cost;
+        }
+        return acc;
+      }
+      return acc;
+    }, 0);
+    maxResult = answers.reduce((acc, item) => acc + item.cost, 0);
+    percentageResult = ((userResult / maxResult) * 100).toFixed(2);
+  }
   useEffect(() => {
+    console.log('effect');
     async function run() {
       const data = await getResults(+params.id);
       setTestName(data.name);
@@ -78,20 +103,31 @@ function ViewResultsPage() {
           {
             isLoading ? null
               : (
-                <Stack
-                  direction="row"
-                  justifyContent="center"
-                  spacing={2}
-                  sx={{ mt: 5, mb: 5 }}
-                >
-                  <Button
-                    variant="contained"
-                    color="error"
-                    onClick={handleClickBack}
+                <>
+                  <Stack
+                    direction="row"
+                    justifyContent="center"
+                    sx={{ mt: 5, mb: 5 }}
                   >
-                    Вернуться к тестам
-                  </Button>
-                </Stack>
+                    <Typography>
+                      {`Итоговый результат: ${userResult} из ${maxResult} или ${percentageResult}%`}
+                    </Typography>
+                  </Stack>
+                  <Stack
+                    direction="row"
+                    justifyContent="center"
+                    spacing={2}
+                    sx={{ mt: 5, mb: 5 }}
+                  >
+                    <Button
+                      variant="contained"
+                      color="error"
+                      onClick={handleClickBack}
+                    >
+                      Вернуться к тестам
+                    </Button>
+                  </Stack>
+                </>
               )
           }
         </Container>

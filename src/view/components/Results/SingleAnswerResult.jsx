@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Radio, Stack, Typography,
+  Radio, Stack, Tooltip, Typography,
 } from '@mui/material';
 import Box from '@mui/material/Box';
 
@@ -24,18 +24,22 @@ function SingleAnswerVariant({ answer, isCorrect }) {
           />
         ) : (
           <>
-            <Radio
-              checked={userIsTrue}
-              name="radio-buttons"
-              id={generatedId}
-              color="error"
-            />
-            <Radio
-              checked={realIsTrue}
-              name="radio-buttons"
-              id={generatedId}
-              color="success"
-            />
+            <Tooltip title="Выбранный ответ">
+              <Radio
+                checked={userIsTrue}
+                name="radio-buttons"
+                id={generatedId}
+                color="error"
+              />
+            </Tooltip>
+            <Tooltip title="Правильный ответ">
+              <Radio
+                checked={realIsTrue}
+                name="radio-buttons"
+                id={generatedId}
+                color="success"
+              />
+            </Tooltip>
           </>
         )
       }
