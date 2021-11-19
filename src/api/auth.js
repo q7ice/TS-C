@@ -12,9 +12,9 @@ export const registerAdmin = async (email, password, secret) => {
       'Access-Control-Allow-Credentials': 'true',
     },
   };
-  const response = await axios(config);
-  if (response.data?.error) return { error: response.data.error };
-  return response?.data?.body;
+  const { data } = await axios(config);
+  if (data.error) return { error: data.error };
+  return { message: data.message };
 };
 
 export const registerUser = async (email, password) => {

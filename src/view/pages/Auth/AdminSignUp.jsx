@@ -9,12 +9,15 @@ import Header from '../../common/Header';
 import EmailInput from '../../common/Auth/EmailInput';
 import PasswordInput from '../../common/Auth/PasswordInput';
 import ConfirmButton from '../../common/Auth/ConfirmButton';
+import { useAlert } from '../../../contexts/AlertContext';
 
 function AdminSignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
   const [secret, setSecret] = useState('');
+
+  const { showError, showSuccess } = useAlert();
 
   const handleChangeEmail = (e) => setEmail(e.target.value);
   const handleChangePassword = (e) => setPassword(e.target.value);
@@ -24,7 +27,12 @@ function AdminSignUp() {
   const navigate = useNavigate();
   const handleClickSubmit = async () => {
     if (password === repeatPassword) {
-      await registerAdmin(email, password, secret);
+      const answer = await registerAdmin(email, password, secret);
+      if (answer.error) {
+        showError(answer.error);
+      } else {
+        showSuccess(answer.message);
+      }
       navigate('/sign-in');
     }
   };
