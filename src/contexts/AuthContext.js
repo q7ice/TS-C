@@ -32,8 +32,8 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   const startId = localStorage.getItem('userId') ?? null;
   const startRole = localStorage.getItem('userRole') ?? null;
-  const [id, setId] = useState(startId);
-  const [role, setRole] = useState(startRole);
+  const [id, setId] = useState(startId === String(null) ? null : startId);
+  const [role, setRole] = useState(startRole === String(null) ? null : startRole);
   useEffect(() => {
     async function run() {
       const data = await validateUser();

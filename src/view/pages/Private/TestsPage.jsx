@@ -4,10 +4,10 @@ import {
   Container, Grid, Paper, useMediaQuery,
 } from '@mui/material';
 import Box from '@mui/material/Box';
-import Header from '../common/Header';
-import Card from '../components/TestCard';
-import NewCard from '../components/NewCard';
-import { getAllTests } from '../../api/test';
+import Header from '../../common/Header';
+import Card from '../../components/TestCard';
+import NewCard from '../../components/NewCard';
+import { getAllTests } from '../../../api/test';
 
 function TestsPage() {
   const [tests, setTests] = useState([]);

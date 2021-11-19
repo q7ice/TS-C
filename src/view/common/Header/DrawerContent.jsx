@@ -19,7 +19,9 @@ function ListLink({ children, to, disabled }) {
 }
 
 function DrawerContent({ toggleDrawer }) {
-  const { isAuth, setId, setRole } = useAuth();
+  const {
+    isAuth, role, setId, setRole,
+  } = useAuth();
   const logout = async () => {
     await logoutUser();
     setId(null);
@@ -35,12 +37,20 @@ function DrawerContent({ toggleDrawer }) {
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-        <ListLink to="/settings" disabled={!isAuth}>
+        <ListLink to="/settings" disabled={!isAuth || String(role) === 'block'}>
           Настройки
         </ListLink>
-        <ListLink to="/tests" disabled={!isAuth}>
+        <ListLink to="/tests" disabled={!isAuth || String(role) === 'block'}>
           Тесты
         </ListLink>
+        {
+          String(role) === 'admin'
+            ? (
+              <ListLink to="/admin-panel">
+                Админ панель
+              </ListLink>
+            ) : null
+        }
         {
           isAuth
             ? (

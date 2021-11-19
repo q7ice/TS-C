@@ -19,6 +19,8 @@ export const serverConfig = {
   changeOpenTest: `${baseURL}/changeOpenTest`,
   saveAnswers: `${baseURL}/saveAnswers`,
   getResults: `${baseURL}/getResults`,
+  adminRegistration: `${baseURL}/adminRegistration`,
+  blockUser: `${baseURL}/blockUser`,
 };
 
 export default serverConfig;

@@ -8,9 +8,9 @@ import {
 } from '@mui/material';
 import Box from '@mui/material/Box';
 import { useNavigate, useParams } from 'react-router-dom';
-import Header from '../common/Header';
-import { getResults } from '../../api/test';
-import QuestionResultClear from '../components/QuestionResult';
+import Header from '../../common/Header';
+import { getResults } from '../../../api/test';
+import QuestionResultClear from '../../components/Results/QuestionResult';
 
 const QuestionResult = memo(QuestionResultClear);
 

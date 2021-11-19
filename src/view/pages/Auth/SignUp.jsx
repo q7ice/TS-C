@@ -3,30 +3,27 @@ import Box from '@mui/material/Box';
 import {
   Container, Link, Paper, Stack, Typography, useMediaQuery,
 } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
-import Header from '../common/Header';
-import EmailInput from '../common/Auth/EmailInput';
-import PasswordInput from '../common/Auth/PasswordInput';
-import ConfirmButton from '../common/Auth/ConfirmButton';
-import { loginUser } from '../../api/auth';
-import { useAuth } from '../../contexts/AuthContext';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import Header from '../../common/Header';
+import PasswordInput from '../../common/Auth/PasswordInput';
+import EmailInput from '../../common/Auth/EmailInput';
+import ConfirmButton from '../../common/Auth/ConfirmButton';
+import { registerUser } from '../../../api/auth';
 
-function SignIn() {
+function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [repeatPassword, setRepeatPassword] = useState('');
 
   const handleChangeEmail = (e) => setEmail(e.target.value);
   const handleChangePassword = (e) => setPassword(e.target.value);
+  const handleChangeRepeatPassword = (e) => setRepeatPassword(e.target.value);
 
-  const { setId, setRole } = useAuth();
-
+  const navigate = useNavigate();
   const handleClickSubmit = async () => {
-    const data = await loginUser(email, password);
-    if (data?.id && data?.role) {
-      setId(data.id);
-      setRole(data.role);
-      localStorage.setItem('userId', data.id);
-      localStorage.setItem('userRole', data.role);
+    if (password === repeatPassword) {
+      await registerUser(email, password);
+      navigate('/sign-in');
     }
   };
 
@@ -34,7 +31,7 @@ function SignIn() {
 
   return (
     <Box>
-      <Header title="Вход" />
+      <Header title="Регистрация" />
       <Paper
         square
         sx={{
@@ -54,25 +51,21 @@ function SignIn() {
               value={password}
               onChange={handleChangePassword}
               label="Пароль"
-              submit={handleClickSubmit}
+            />
+            <PasswordInput
+              value={repeatPassword}
+              onChange={handleChangeRepeatPassword}
+              label="Повтор пароля"
             />
             <ConfirmButton onClick={handleClickSubmit}>
-              Войти
+              Зарегистрироваться
             </ConfirmButton>
             <Typography sx={{ mt: 1, textAlign: 'center' }}>
               <Link
                 component={RouterLink}
-                to="/forgot-password"
+                to="/sign-in"
               >
-                Восстановить пароль
-              </Link>
-            </Typography>
-            <Typography sx={{ mt: 1, textAlign: 'center' }}>
-              <Link
-                component={RouterLink}
-                to="/sign-up"
-              >
-                Зарегистрироваться
+                Войти в аккаунт
               </Link>
             </Typography>
           </Stack>
@@ -82,4 +75,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default SignUp;

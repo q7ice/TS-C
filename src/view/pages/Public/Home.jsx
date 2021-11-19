@@ -4,7 +4,7 @@ import {
 } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import Box from '@mui/material/Box';
-import Header from '../common/Header';
+import Header from '../../common/Header';
 
 function Home() {
   const minBarHeight = `calc(100vh - ${useMediaQuery('(min-width:600px)') ? '66px' : '58px'})`;

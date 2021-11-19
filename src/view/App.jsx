@@ -1,17 +1,20 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import SignIn from './pages/SignIn';
-import ForgotPassword from './pages/ForgotPassword';
-import SignUp from './pages/SignUp';
-import SettingsPage from './pages/SettingsPage';
-import TestsPage from './pages/TestsPage';
-import TestEditPage from './pages/TestEditPage';
+import SignIn from './pages/Auth/SignIn';
+import ForgotPassword from './pages/Auth/ForgotPassword';
+import SignUp from './pages/Auth/SignUp';
+import SettingsPage from './pages/Private/SettingsPage';
+import TestsPage from './pages/Private/TestsPage';
+import TestEditPage from './pages/Private/TestEditPage';
 import { ThemeContextProvider } from '../contexts/ThemeContext';
 import { AuthProvider } from '../contexts/AuthContext';
-import RequireUnAuth from './components/RequireUnAuth';
-import RequireAuth from './components/RequireAuth';
-import Home from './pages/Home';
-import TakeTestPage from './pages/TakeTestPage';
-import ViewResultsPage from './pages/ViewResultsPage';
+import RequireUnAuth from './components/LinkTypes/RequireUnAuth';
+import RequireAuth from './components/LinkTypes/RequireAuth';
+import Home from './pages/Public/Home';
+import TakeTestPage from './pages/Private/TakeTestPage';
+import ViewResultsPage from './pages/Private/ViewResultsPage';
+import AdminSignUp from './pages/Auth/AdminSignUp';
+import RequireAdmin from './components/LinkTypes/RequireAdmin';
+import BlockUser from './pages/admin/BlockUser';
 
 function App() {
   return (
@@ -19,6 +22,7 @@ function App() {
       <ThemeContextProvider>
         <BrowserRouter>
           <Routes>
+            <Route path="/admin-sign-up" element={<RequireUnAuth><AdminSignUp /></RequireUnAuth>} />
             <Route path="/sign-in" element={<RequireUnAuth><SignIn /></RequireUnAuth>} />
             <Route path="/sign-up" element={<RequireUnAuth><SignUp /></RequireUnAuth>} />
             <Route path="/forgot-password" element={<RequireUnAuth><ForgotPassword /></RequireUnAuth>} />
@@ -33,6 +37,7 @@ function App() {
             <Route path="/view-results">
               <Route path=":id" element={<RequireAuth><ViewResultsPage /></RequireAuth>} />
             </Route>
+            <Route path="/admin-panel" element={<RequireAdmin><BlockUser /></RequireAdmin>} />
             <Route path="*" element={<Home />} />
           </Routes>
         </BrowserRouter>

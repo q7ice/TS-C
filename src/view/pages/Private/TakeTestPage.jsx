@@ -8,9 +8,9 @@ import {
 } from '@mui/material';
 import Box from '@mui/material/Box';
 import { useNavigate, useParams } from 'react-router-dom';
-import QuestionFormClear from '../components/QuestionForm';
-import Header from '../common/Header';
-import { saveAnswers, takeTest } from '../../api/test';
+import QuestionFormClear from '../../components/Forms/QuestionForm';
+import Header from '../../common/Header';
+import { saveAnswers, takeTest } from '../../../api/test';
 
 const QuestionForm = memo(QuestionFormClear);
 
