@@ -5,8 +5,14 @@ import {
 import AnswerResult from './AnswerResult';
 
 function QuestionResult({
-  type, description, answers,
+  type, description, answers, cost,
 }) {
+  let correctAnswer = false;
+  if (type === 'text') {
+    correctAnswer = answers.value === answers.realValue;
+  } else if (type === 'single' || type === 'multi') {
+    correctAnswer = answers.every((answer) => answer.userIsTrue === answer.realIsTrue);
+  }
   return (
     <Paper
       elevation={12}
@@ -17,6 +23,9 @@ function QuestionResult({
         type={type}
         answers={answers}
       />
+      <Typography color="gray" fontSize={16}>
+        {`Количество баллов: ${correctAnswer ? cost : 0} из ${cost}`}
+      </Typography>
     </Paper>
   );
 }

@@ -4,30 +4,41 @@ import {
 } from '@mui/material';
 import Box from '@mui/material/Box';
 
-function SingleAnswerVariant({ answer }) {
+function SingleAnswerVariant({ answer, isCorrect }) {
   const { userIsTrue, realIsTrue } = answer;
   const generatedId = `${Math.random()}`;
-  let color = 'default';
-  if (userIsTrue !== realIsTrue) {
-    color = 'error';
-  }
-  if (realIsTrue) {
-    color = 'success';
-  }
 
   return (
     <Stack
       direction="row"
-      spacing={2}
       alignItems="center"
       sx={{ mb: 2 }}
     >
-      <Radio
-        checked={realIsTrue || userIsTrue}
-        name="radio-buttons"
-        id={generatedId}
-        color={color}
-      />
+      {
+        isCorrect ? (
+          <Radio
+            checked={userIsTrue}
+            name="radio-buttons"
+            id={generatedId}
+            color="success"
+          />
+        ) : (
+          <>
+            <Radio
+              checked={userIsTrue}
+              name="radio-buttons"
+              id={generatedId}
+              color="error"
+            />
+            <Radio
+              checked={realIsTrue}
+              name="radio-buttons"
+              id={generatedId}
+              color="success"
+            />
+          </>
+        )
+      }
       <Typography
         htmlFor={generatedId}
         component="label"
@@ -46,6 +57,7 @@ function SingleAnswerResult({ answers }) {
           <SingleAnswerVariant
             key={index}
             answer={answer}
+            isCorrect={answers.every((item) => item.userIsTrue === item.realIsTrue)}
           />
         ))
       }

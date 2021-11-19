@@ -71,6 +71,7 @@ function ViewResultsPage() {
                   type={question.type}
                   description={question.description}
                   answers={question.answers}
+                  cost={question.cost}
                 />
               ))
           }

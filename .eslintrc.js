@@ -34,5 +34,6 @@ module.exports = {
     'react/no-array-index-key': 'off',
     'max-len': 'off',
     'no-return-await': 'off',
+    'no-empty': 'off',
   },
 };
