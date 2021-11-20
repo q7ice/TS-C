@@ -82,3 +82,32 @@ export const checkIsAvailableEmail = async (email) => {
   const response = await axios.post(serverConfig.isAvailableEmailURL, body);
   return response.data;
 };
+
+export const getPersonalData = async () => {
+  const config = {
+    method: 'get',
+    url: serverConfig.getPersonalData,
+    withCredentials: true,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': 'true',
+    },
+  };
+  const result = await axios(config);
+  return result.data;
+};
+
+export const changeName = async (name) => {
+  const config = {
+    method: 'put',
+    url: serverConfig.changeUserNameURL,
+    withCredentials: true,
+    data: { name },
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': 'true',
+    },
+  };
+  const result = await axios(config);
+  return result.data;
+};
