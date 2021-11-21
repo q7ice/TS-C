@@ -10,11 +10,15 @@ import LockOpenIcon from '@mui/icons-material/LockOpen';
 import { changeOpenTest, destroyTest } from '../../api/test';
 
 function TestCard({
-  id, title, isClosed, date, rerenderTests,
+  id, title, isClosed, date,
 }) {
-  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
+  const navigate = useNavigate();
   const open = Boolean(anchorEl);
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -37,6 +41,7 @@ function TestCard({
   const handleTakeTest = () => {
     navigate(`/take-test/${id}`);
   };
+
   return (
     <Card
       elevation={12}
@@ -53,7 +58,10 @@ function TestCard({
         <IconButton
           onClick={handleClick}
           aria-label="settings"
-          sx={{ position: 'absolute', right: 10 }}
+          sx={{
+            position: 'absolute',
+            right: 10,
+          }}
         >
           <MoreVertIcon />
         </IconButton>
@@ -94,10 +102,8 @@ function TestCard({
         id="basic-menu"
         anchorEl={anchorEl}
         open={open}
-        onClose={handleTestEdit}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
+        onClose={handleClose}
+        MenuListProps={{ 'aria-labelledby': 'basic-button' }}
       >
         <MenuItem onClick={handleTestChangeOpen}>
           {isClosed ? 'Открыть доступ' : 'Закрыть доступ'}
