@@ -37,7 +37,11 @@ function PasswordInput({
         width: '15rem',
       }}
     >
-      <InputLabel htmlFor="password">{label}</InputLabel>
+      <InputLabel
+        htmlFor="password"
+      >
+        {label}
+      </InputLabel>
       <OutlinedInput
         type={show ? 'text' : 'password'}
         value={value}

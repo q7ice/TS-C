@@ -66,7 +66,6 @@ function DrawerContent({ toggleDrawer }) {
               </ListLink>
             )
         }
-
       </List>
     </Box>
   );
