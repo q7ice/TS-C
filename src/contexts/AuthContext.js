@@ -3,12 +3,10 @@ import {
 } from 'react';
 import { validateUser } from '../api/auth';
 
-const initialState = {
+export const AuthContext = createContext({
   id: null,
   role: null,
-};
-
-export const AuthContext = createContext(initialState);
+});
 
 export const useAuth = () => {
   const {
@@ -18,14 +16,12 @@ export const useAuth = () => {
     setRole,
   } = useContext(AuthContext);
 
-  const isAuth = !!role;
-
   return {
-    isAuth,
-    role,
     id,
+    role,
     setId,
     setRole,
+    isAuth: !!role,
   };
 };
 
@@ -34,6 +30,7 @@ export const AuthProvider = ({ children }) => {
   const startRole = localStorage.getItem('userRole') ?? null;
   const [id, setId] = useState(startId === String(null) ? null : startId);
   const [role, setRole] = useState(startRole === String(null) ? null : startRole);
+
   useEffect(() => {
     async function run() {
       const data = await validateUser();

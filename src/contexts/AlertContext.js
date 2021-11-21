@@ -1,10 +1,9 @@
-import {
-  createContext, useContext, useState,
-} from 'react';
+import { createContext, useContext, useState } from 'react';
 
-const initialState = { error: '', success: '' };
-const AlertContext = createContext(initialState);
-
+const AlertContext = createContext({
+  error: '',
+  success: '',
+});
 export const useAlert = () => useContext(AlertContext);
 
 export const AlertProvider = ({ children }) => {
@@ -18,7 +17,6 @@ export const AlertProvider = ({ children }) => {
     setSuccess('');
     setSuccess(message);
   };
-
   const AlertValue = {
     error,
     success,
@@ -27,7 +25,6 @@ export const AlertProvider = ({ children }) => {
     showError,
     showSuccess,
   };
-
   return (
     <AlertContext.Provider value={AlertValue}>
       {children}

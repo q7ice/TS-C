@@ -12,14 +12,9 @@ function PasswordInput({
   value, onChange, label, submit,
 }) {
   const [show, setShow] = useState(false);
-
   const handleMouseDownPassword = (event) => event.preventDefault();
   const handleClickShowPassword = () => setShow(!show);
-  const handleKeyPress = (event) => {
-    if (event.key === 'Enter' && submit) {
-      submit();
-    }
-  };
+  const handleKeyPress = (event) => { if (event.key === 'Enter' && submit) submit(); };
 
   const visibilityButton = (
     <InputAdornment position="end">
@@ -35,7 +30,13 @@ function PasswordInput({
   );
 
   return (
-    <FormControl sx={{ mb: '1rem', width: '15rem' }} variant="outlined">
+    <FormControl
+      variant="outlined"
+      sx={{
+        mb: '1rem',
+        width: '15rem',
+      }}
+    >
       <InputLabel htmlFor="password">{label}</InputLabel>
       <OutlinedInput
         type={show ? 'text' : 'password'}

@@ -4,8 +4,8 @@ import { Button } from '@mui/material';
 function ConfirmButton({ children, onClick }) {
   return (
     <Button
-      onClick={onClick}
       variant="contained"
+      onClick={onClick}
       sx={{ width: '15rem' }}
     >
       {children}
