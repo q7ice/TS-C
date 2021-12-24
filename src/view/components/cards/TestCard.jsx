@@ -7,7 +7,7 @@ import LockIcon from '@mui/icons-material/Lock';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useNavigate } from 'react-router-dom';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
-import { changeOpenTest, destroyTest } from '../../api/test';
+import { changeOpenTest, destroyTest } from '../../../api/test';
 
 function TestCard({
   id, title, isClosed, date,

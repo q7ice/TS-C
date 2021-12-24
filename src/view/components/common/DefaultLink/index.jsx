@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function DefaultLink({ to, children, ...other }) {
+function Index({ to, children, ...other }) {
   return (
     <Link {...other} to={to}>
       {children}
@@ -9,4 +9,4 @@ function DefaultLink({ to, children, ...other }) {
   );
 }
 
-export default DefaultLink;
+export default Index;

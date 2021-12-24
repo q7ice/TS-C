@@ -8,8 +8,8 @@ import {
 } from '@mui/material';
 import Box from '@mui/material/Box';
 import { useNavigate, useParams } from 'react-router-dom';
-import QuestionConstructorClear from '../../components/Constructors/QuestionConstructor';
-import Header from '../../common/Header';
+import QuestionConstructorClear from '../../components/constructors/QuestionConstructor';
+import Header from '../../components/common/Header';
 import {
   createNewTest, editTest, getOneTest,
 } from '../../../api/test';

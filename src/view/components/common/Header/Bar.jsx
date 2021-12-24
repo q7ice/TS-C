@@ -5,7 +5,7 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
-import { ThemeContext } from '../../../contexts/ThemeContext';
+import { ThemeContext } from '../../../../contexts/ThemeContext';
 
 function Bar({
   toggleDrawer,

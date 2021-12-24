@@ -1,28 +1,38 @@
-import { useState } from 'react';
-import Box from '@mui/material/Box';
+import React, { useState } from 'react';
 import {
   Container, Link, Paper, Stack, Typography, useMediaQuery,
 } from '@mui/material';
+import Box from '@mui/material/Box';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import Header from '../../common/Header';
-import PasswordInput from '../../common/Auth/PasswordInput';
-import EmailInput from '../../common/Auth/EmailInput';
-import ConfirmButton from '../../common/Auth/ConfirmButton';
-import { registerUser } from '../../../api/auth';
+import { registerAdmin } from '../../../api/auth';
+import Header from '../../components/common/Header';
+import EmailInput from '../../components/common/auth/EmailInput';
+import PasswordInput from '../../components/common/auth/PasswordInput';
+import ConfirmButton from '../../components/common/auth/ConfirmButton';
+import { useAlert } from '../../../contexts/AlertContext';
 
-function SignUp() {
+function AdminSignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
+  const [secret, setSecret] = useState('');
+
+  const { showError, showSuccess } = useAlert();
 
   const handleChangeEmail = (e) => setEmail(e.target.value);
   const handleChangePassword = (e) => setPassword(e.target.value);
   const handleChangeRepeatPassword = (e) => setRepeatPassword(e.target.value);
+  const handleChangeSecret = (e) => setSecret(e.target.value);
 
   const navigate = useNavigate();
   const handleClickSubmit = async () => {
     if (password === repeatPassword) {
-      await registerUser(email, password);
+      const answer = await registerAdmin(email, password, secret);
+      if (answer.error) {
+        showError(answer.error);
+      } else {
+        showSuccess(answer.message);
+      }
       navigate('/sign-in');
     }
   };
@@ -57,6 +67,11 @@ function SignUp() {
               onChange={handleChangeRepeatPassword}
               label="Повтор пароля"
             />
+            <PasswordInput
+              value={secret}
+              onChange={handleChangeSecret}
+              label="Ключ приглашения"
+            />
             <ConfirmButton onClick={handleClickSubmit}>
               Зарегистрироваться
             </ConfirmButton>
@@ -75,4 +90,4 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default AdminSignUp;

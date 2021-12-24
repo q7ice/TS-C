@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import {
   List, ListItem, Typography,
 } from '@mui/material';
-import { useAuth } from '../../../contexts/AuthContext';
-import { logoutUser } from '../../../api/auth';
+import { useAuth } from '../../../../contexts/AuthContext';
+import { logoutUser } from '../../../../api/auth';
 
 function ListLink({ children, to, disabled }) {
   const navigate = useNavigate();

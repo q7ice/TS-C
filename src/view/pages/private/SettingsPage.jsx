@@ -6,7 +6,7 @@ import {
 } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 import React, { useEffect, useState } from 'react';
-import Header from '../../common/Header';
+import Header from '../../components/common/Header';
 import { changeName, getPersonalData } from '../../../api/auth';
 import { useAlert } from '../../../contexts/AlertContext';
 

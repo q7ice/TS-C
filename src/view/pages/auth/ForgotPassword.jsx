@@ -4,9 +4,9 @@ import {
   Container, Link, Paper, Stack, Typography, useMediaQuery,
 } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
-import Header from '../../common/Header';
-import EmailInput from '../../common/Auth/EmailInput';
-import ConfirmButton from '../../common/Auth/ConfirmButton';
+import Header from '../../components/common/Header';
+import EmailInput from '../../components/common/auth/EmailInput';
+import ConfirmButton from '../../components/common/auth/ConfirmButton';
 
 function ForgotPassword() {
   const [email, setEmail] = useState('');

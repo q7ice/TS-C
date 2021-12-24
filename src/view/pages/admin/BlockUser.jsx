@@ -3,7 +3,7 @@ import {
 } from '@mui/material';
 import Box from '@mui/material/Box';
 import { forwardRef, useState } from 'react';
-import Header from '../../common/Header';
+import Header from '../../components/common/Header';
 import { blockUser } from '../../../api/admin';
 import { useAlert } from '../../../contexts/AlertContext';
 

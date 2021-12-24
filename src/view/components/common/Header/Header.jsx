@@ -4,7 +4,7 @@ import { forwardRef, useState } from 'react';
 import MuiAlert from '@mui/material/Alert';
 import Bar from './Bar';
 import DrawerContent from './DrawerContent';
-import { useAlert } from '../../../contexts/AlertContext';
+import { useAlert } from '../../../../contexts/AlertContext';
 
 function Header({ title, offer, to }) {
   const [showDrawer, setShowDrawer] = useState(false);
