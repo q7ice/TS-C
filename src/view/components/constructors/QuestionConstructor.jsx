@@ -53,7 +53,7 @@ function QuestionConstructor({
       id,
       type,
       description,
-      cost: e.target.value,
+      cost: `${+e.target.value}`,
       answers,
     };
     setQuestion(id, question);
