@@ -8,7 +8,6 @@ import Header from '../../components/common/Header';
 import Card from '../../components/cards/TestCard';
 import NewCard from '../../components/cards/NewCard';
 import { getAllTests } from '../../../api/test';
-import { useAlert } from '../../../contexts/AlertContext';
 
 function TestsPage() {
   const [tests, setTests] = useState([]);
